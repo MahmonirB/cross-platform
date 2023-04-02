@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const appDirectory = path.resolve(__dirname);
-const {presets} = require(`${appDirectory}/babel.config.js`);
+const { presets } = require(`${appDirectory}/babel.config.js`);
 
 const compileNodeModules = [
   // Add every react-native package that needs compiling
@@ -28,6 +28,12 @@ const babelLoaderConfiguration = {
       plugins: ['react-native-web'],
     },
   },
+};
+
+const ttfLoaderConfiguration = {
+  test: /\.ttf$/,
+  loader: 'url-loader', // or directly file-loader
+  include: path.resolve(appDirectory, 'node_modules/react-native-vector-icons'),
 };
 
 const svgLoaderConfiguration = {
@@ -69,6 +75,7 @@ module.exports = {
       babelLoaderConfiguration,
       imageLoaderConfiguration,
       svgLoaderConfiguration,
+      ttfLoaderConfiguration,
     ],
   },
   plugins: [

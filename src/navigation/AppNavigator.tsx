@@ -1,10 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/dist/AntDesign';
 import HomeScreen from '../container/HomeScreen';
 import MainScreen from '../container/index';
 import AuthenticateStack from './AuthenticateStack/AuthenticateStack';
 
 const Stack = createNativeStackNavigator();
+const headerLeft = () => <Icon name="arrowleft" />;
 
 function AppNavigator() {
   return (
@@ -12,12 +14,14 @@ function AppNavigator() {
       <Stack.Screen
         name="AuthenticateStack"
         component={AuthenticateStack}
-        options={{
-          header: () => null,
-        }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="Main" component={MainScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerLeft }}
+      />
     </Stack.Navigator>
   );
 }
