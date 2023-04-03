@@ -17,7 +17,7 @@ const MainTabs = () => {
         component={ExploreStackScreen}
         options={{
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="home" size={26} />,
+          tabBarIcon: () => <Icon name="home" size={24} />,
         }}
       />
       <Tabs.Screen
@@ -25,7 +25,7 @@ const MainTabs = () => {
         component={NotificationsStackScreen}
         options={{
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="mail" size={26} />,
+          tabBarIcon: () => <Icon name="mail" size={24} />,
         }}
       />
       <Tabs.Screen
@@ -33,7 +33,7 @@ const MainTabs = () => {
         component={SettingsStackScreen}
         options={{
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="setting" size={26} />,
+          tabBarIcon: () => <Icon name="setting" size={24} />,
         }}
       />
     </Tabs.Navigator>

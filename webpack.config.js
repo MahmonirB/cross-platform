@@ -20,6 +20,8 @@ const babelLoaderConfiguration = {
     path.resolve(__dirname, 'src'),
     ...compileNodeModules,
   ],
+  exclude:
+    /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
   use: {
     loader: 'babel-loader',
     options: {
@@ -33,7 +35,10 @@ const babelLoaderConfiguration = {
 const ttfLoaderConfiguration = {
   test: /\.ttf$/,
   loader: 'url-loader', // or directly file-loader
-  include: path.resolve(appDirectory, 'node_modules/react-native-vector-icons'),
+  include: path.resolve(
+    appDirectory,
+    '../node_modules/react-native-vector-icons',
+  ),
 };
 
 const svgLoaderConfiguration = {

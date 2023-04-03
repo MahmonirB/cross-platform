@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../container/HomeScreen';
-import MainContainer from '../../container';
+import Settings from '../../container/Settings';
+import Notifications from '../../container/Notifications';
 
 const SettingsStack = createNativeStackNavigator();
 const NotificationsStack = createNativeStackNavigator();
@@ -10,7 +11,7 @@ const ExploreStack = createNativeStackNavigator();
 export function ExploreStackScreen() {
   return (
     <ExploreStack.Navigator screenOptions={{ headerShown: false }}>
-      <ExploreStack.Screen name="MainPage" component={MainContainer} />
+      <ExploreStack.Screen name="MainPage" component={HomeScreen} />
     </ExploreStack.Navigator>
   );
 }
@@ -18,7 +19,7 @@ export function ExploreStackScreen() {
 export function SettingsStackScreen() {
   return (
     <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
-      <SettingsStack.Screen name="Setting" component={HomeScreen} />
+      <SettingsStack.Screen name="Setting" component={Settings} />
     </SettingsStack.Navigator>
   );
 }
@@ -26,7 +27,10 @@ export function SettingsStackScreen() {
 export function NotificationsStackScreen() {
   return (
     <NotificationsStack.Navigator screenOptions={{ headerShown: false }}>
-      <NotificationsStack.Screen name="Notification" component={HomeScreen} />
+      <NotificationsStack.Screen
+        name="Notification"
+        component={Notifications}
+      />
     </NotificationsStack.Navigator>
   );
 }
