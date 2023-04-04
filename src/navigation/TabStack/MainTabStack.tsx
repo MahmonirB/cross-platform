@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../../container/HomeScreen';
-import Settings from '../../container/Settings';
-import Notifications from '../../container/Notifications';
+import HomeScreen from '@app/container/HomeScreen';
+import Settings from '@app/container/Settings';
+import Notifications from '@app/container/Notifications';
 
 const SettingsStack = createNativeStackNavigator();
 const NotificationsStack = createNativeStackNavigator();
