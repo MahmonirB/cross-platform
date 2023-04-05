@@ -1,3 +1,4 @@
+import { colors } from '@app/styles/colors';
 import { useNavigation, ParamListBase } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
@@ -29,12 +30,12 @@ const MainContainer = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#C3E8BD',
+    backgroundColor: colors.blueSettingBg,
     paddingTop: 40,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#ADBDFF',
+    backgroundColor: colors.blueButtonTips,
     padding: 5,
     marginVertical: 20,
     alignSelf: 'flex-start',
