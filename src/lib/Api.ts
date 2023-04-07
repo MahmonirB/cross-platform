@@ -1,5 +1,6 @@
 import request from '@app/utils/request';
 import { QueryKey, UseBaseQueryOptions, useQuery } from '@tanstack/react-query';
+import Config from 'react-native-config';
 
 type UseReactQueryType = {
   arg: {
@@ -7,11 +8,12 @@ type UseReactQueryType = {
     key: QueryKey;
     params?: object;
   };
-  config?: UseBaseQueryOptions;
+  options?: UseBaseQueryOptions;
 };
 
-function useReactQuery({ arg, config }: UseReactQueryType) {
+function useReactQuery({ arg, options }: UseReactQueryType) {
   const { key, url, params } = arg;
+console.log("=====================>"+ Config.APP_KEY)
   const headers = {};
   return useQuery(
     key,
@@ -19,7 +21,7 @@ function useReactQuery({ arg, config }: UseReactQueryType) {
       request({
         url,
         method: 'GET',
-        params,
+        params: { 'api-key': '', ...params },
         headers,
       })
         .then(response => response.data)
@@ -28,7 +30,7 @@ function useReactQuery({ arg, config }: UseReactQueryType) {
       refetchOnWindowFocus: false,
       retry: 0,
       retryOnMount: true,
-      ...config,
+      ...options,
     },
   );
 }
