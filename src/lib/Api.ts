@@ -1,6 +1,6 @@
+import { WEB_ENV } from '@app/config';
 import request from '@app/utils/request';
 import { QueryKey, UseBaseQueryOptions, useQuery } from '@tanstack/react-query';
-import { Platform } from 'react-native';
 import Config from 'react-native-config';
 
 type UseReactQueryType = {
@@ -14,7 +14,8 @@ type UseReactQueryType = {
 
 function useReactQuery({ arg, options }: UseReactQueryType) {
   const { key, url, params } = arg;
-  const headers = {};
+  const apiKey = WEB_ENV ? process.env.APP_KEY : Config.APP_KEY;
+
   return useQuery(
     key,
     async () =>
@@ -22,11 +23,10 @@ function useReactQuery({ arg, options }: UseReactQueryType) {
         url,
         method: 'GET',
         params: {
-          'api-key':
-            Platform.OS === 'web' ? process.env.APP_KEY : Config.APP_KEY,
+          'api-key': apiKey,
           ...params,
         },
-        headers,
+        headers: {},
       })
         .then(response => response.data)
         .catch(err => console.warn(err)),
