@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/dist/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 import HomeScreen from '../container/HomeScreen';
 import AuthenticateStack from './AuthenticateStack/AuthenticateStack';
 import MainTabs from './TabStack/MainTabs';
