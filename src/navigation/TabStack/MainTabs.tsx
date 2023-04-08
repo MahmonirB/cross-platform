@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   ExploreStackScreen,
   SettingsStackScreen,
-  NotificationsStackScreen,
+  BookCategoryStackScreen,
 } from './MainTabStack';
 import Icon from 'react-native-vector-icons/dist/AntDesign';
 
@@ -21,11 +21,11 @@ const MainTabs = () => {
         }}
       />
       <Tabs.Screen
-        name="Notifications"
-        component={NotificationsStackScreen}
+        name="BookCategory"
+        component={BookCategoryStackScreen}
         options={{
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="mail" size={24} />,
+          tabBarIcon: () => <Icon name="book" size={24} />,
         }}
       />
       <Tabs.Screen

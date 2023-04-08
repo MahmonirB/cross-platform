@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Text, StyleSheet, Animated } from 'react-native';
-import typography from '../../styles/typography';
+import typography from '../styles/typography';
 
 function AuthLoading(props: any) {
   const { navigation } = props;
