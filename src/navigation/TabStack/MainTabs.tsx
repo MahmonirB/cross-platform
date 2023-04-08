@@ -21,7 +21,7 @@ const MainTabs = () => {
         }}
       />
       <Tabs.Screen
-        name="BookCategory"
+        name="Book Category"
         component={BookCategoryStackScreen}
         options={{
           tabBarLabel: '',
