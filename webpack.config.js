@@ -34,11 +34,15 @@ const babelLoaderConfiguration = {
 
 const ttfLoaderConfiguration = {
   test: /\.ttf$/,
-  loader: 'url-loader', // or directly file-loader
-  include: path.resolve(
-    appDirectory,
-    '../node_modules/react-native-vector-icons',
-  ),
+  loader: 'url-loader',
+  include: path.resolve(__dirname, 'node_modules/react-native-vector-icons'),
+};
+
+const vectorIcoConfiguration = {
+  test: /\.js$/,
+  exclude:
+    /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
+  loader: 'babel-loader',
 };
 
 const svgLoaderConfiguration = {
@@ -67,7 +71,7 @@ module.exports = {
   output: {
     path: path.resolve(appDirectory, 'dist'),
     publicPath: '/',
-    filename: 'rnw_blogpost.bundle.js',
+    filename: 'rnw.bundle.js',
   },
   resolve: {
     extensions: ['.web.tsx', '.web.ts', '.tsx', '.ts', '.web.js', '.js'],
@@ -81,6 +85,7 @@ module.exports = {
       imageLoaderConfiguration,
       svgLoaderConfiguration,
       ttfLoaderConfiguration,
+      vectorIcoConfiguration,
     ],
   },
   plugins: [

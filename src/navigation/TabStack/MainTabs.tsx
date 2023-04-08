@@ -5,7 +5,7 @@ import {
   SettingsStackScreen,
   BookCategoryStackScreen,
 } from './MainTabStack';
-import Icon from 'react-native-vector-icons/dist/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const Tabs = createBottomTabNavigator();
 
