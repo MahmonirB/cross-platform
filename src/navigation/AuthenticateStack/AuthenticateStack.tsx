@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import AuthLoading from '@app/screens/AuthenticatingPage/AuthLoading';
+import AuthLoading from '@app/screens/AuthLoading';
 
 const AuthAtack = createNativeStackNavigator();
 
