@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../container/HomeScreen';
 import AuthenticateStack from './AuthenticateStack/AuthenticateStack';
 import MainTabs from './TabStack/MainTabs';
-import BookDetails from '@app/screens/BookDetails';
+import BookCategoryList from '@app/screens/BookCategoryList';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +21,7 @@ function AppNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="BookDetails" component={BookDetails} />
+      <Stack.Screen name="BookCategoryList" component={BookCategoryList} />
     </Stack.Navigator>
   );
 }

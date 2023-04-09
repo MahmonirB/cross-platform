@@ -2,30 +2,29 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { colors } from '@app/styles/colors';
 
+interface ContentItem {
+  name: string;
+  value: string;
+}
 interface BoolListItemProps {
-  data: {
-    list_name: string;
-    display_name: string;
-    oldest_published_date: string;
-    newest_published_date: string;
-  };
+  title?: string;
+  content: ContentItem[];
   onClick: () => void;
 }
 
-function BookListItem({ data, onClick }: BoolListItemProps) {
+function ListItem({ title, content, onClick }: BoolListItemProps) {
   return (
     <TouchableOpacity style={styles.container} onPress={onClick}>
-      <Text style={styles.title}>{data.display_name}</Text>
-      <Text style={styles.text}>
-        oldest published date: {data.oldest_published_date}
-      </Text>
-      <Text style={styles.text}>
-        newest published date: {data.newest_published_date}
-      </Text>
+      {title ? <Text style={styles.title}>{title}</Text> : null}
+      {content?.map((item: ContentItem) => (
+        <Text key={`${item.name}-${item.value}`} style={styles.text}>
+          <Text style={styles.textCaption}>{item.name}:</Text> {item.value}
+        </Text>
+      ))}
     </TouchableOpacity>
   );
 }
-export default BookListItem;
+export default ListItem;
 
 const styles = StyleSheet.create({
   container: {
@@ -46,5 +45,12 @@ const styles = StyleSheet.create({
   title: {
     lineHeight: 24,
     fontSize: 20,
+    marginBottom: 8,
+  },
+  textCaption: {
+    lineHeight: 18,
+    fontSize: 14,
+    paddingLeft: 8,
+    color: colors.captionGray,
   },
 });

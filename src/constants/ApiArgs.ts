@@ -1,14 +1,14 @@
-export const bookCategory = {
+export const bookCategories = {
   arg: {
     url: '/books/v3/lists/names.json',
     key: ['bookList'],
   },
 };
 
-export const bookDetails = (value: string) => ({
+export const bookCategoryList = (value: string) => ({
   arg: {
     url: '/books/v3/lists.json',
-    key: ['bookDetails'],
+    key: ['BookCategoryList'],
     params: { list: value },
   },
 });
