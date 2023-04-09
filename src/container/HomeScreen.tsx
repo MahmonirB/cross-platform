@@ -6,11 +6,11 @@ function HomeScreen() {
   const { data } = useReactQuery({
     arg: {
       url: '/books/v3/lists.json',
-      key: ['book'],
+      key: ['bookList'],
       params: { list: 'hardcover-fiction' },
     },
   });
-console.log({data})
+
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
