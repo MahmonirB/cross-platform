@@ -23,4 +23,5 @@ export const colors = {
   danger: '#DA1E28',
   reasonGray: '#8D8D8D',
   descGray: '#393939',
+  warning: '#f9f990',
 };

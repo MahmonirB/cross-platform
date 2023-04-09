@@ -1,12 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/AntDesign';
 import HomeScreen from '../container/HomeScreen';
 import AuthenticateStack from './AuthenticateStack/AuthenticateStack';
 import MainTabs from './TabStack/MainTabs';
+import BookCategoryList from '@app/screens/BookCategoryList';
 
 const Stack = createNativeStackNavigator();
-const headerLeft = () => <Icon name="arrowleft" />;
 
 function AppNavigator() {
   return (
@@ -21,11 +20,8 @@ function AppNavigator() {
         component={MainTabs}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerLeft }}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="BookCategoryList" component={BookCategoryList} />
     </Stack.Navigator>
   );
 }

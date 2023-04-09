@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '@app/container/HomeScreen';
 import Settings from '@app/container/Settings';
 import Notifications from '@app/container/Notifications';
-import BookCategory from '@app/screens/BookCategory';
+import BookCategory from '@app/screens/BookCategories';
 
 const SettingsStack = createNativeStackNavigator();
 const NotificationsStack = createNativeStackNavigator();
