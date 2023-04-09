@@ -4,9 +4,13 @@ import useReactQuery from '@app/lib/Api';
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 
-function BookCategory() {
+function BookCategory({ navigation }: any) {
   const { data } = useReactQuery(bookCategory);
   const results = data?.results;
+
+  const handleClick = (value: string) => () => {
+    navigation.navigate('BookDetails', { value });
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -15,6 +19,7 @@ function BookCategory() {
             <BookListItem
               key={`${book.display_name}-${book.newest_published_date}`}
               data={book}
+              onClick={handleClick(book.display_name)}
             />
           ))
         : null}
