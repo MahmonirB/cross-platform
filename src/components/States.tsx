@@ -10,8 +10,12 @@ interface StateProps {
   results: any;
 }
 
+type LoadingStateProps<T> = Pick<StateProps, 'isLoading'> & T;
+type ErrorStateProps<T> = Pick<StateProps, 'isError'> & T;
+type EmptyStateProps<T> = Pick<StateProps, 'results'> & T;
+
 export function LoadingState<T>(Component: FC<T>) {
-  return (props: Pick<StateProps, 'isLoading'> & T) => {
+  return (props: LoadingStateProps<T>) => {
     const { isLoading } = props;
 
     if (isLoading) {
@@ -27,7 +31,7 @@ export function LoadingState<T>(Component: FC<T>) {
 }
 
 export function ErrorState<T>(Component: FC<T>) {
-  return (props: Pick<StateProps, 'isError'> & T) => {
+  return (props: ErrorStateProps<T>) => {
     const { isError } = props;
 
     if (isError) {
@@ -43,7 +47,7 @@ export function ErrorState<T>(Component: FC<T>) {
 }
 
 export function EmptyState<T>(Component: FC<T>) {
-  return (props: Pick<StateProps, 'results'> & T) => {
+  return (props: EmptyStateProps<T>) => {
     const { results } = props;
 
     if (!results?.length) {
