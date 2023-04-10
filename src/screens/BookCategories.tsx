@@ -8,8 +8,8 @@ function BookCategories({ navigation }: any) {
   const { data, isError, isLoading } = useReactQuery(bookCategories);
   const results = (data as any)?.results;
 
-  const handleClick = (value: string) => () => {
-    navigation.navigate('BookCategoryList', { value });
+  const handleClick = (listName: string) => () => {
+    navigation.navigate('BookCategoryList', { listName });
   };
 
   const getContent = (book: any) =>

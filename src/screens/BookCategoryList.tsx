@@ -6,9 +6,12 @@ import { StyleSheet, ScrollView } from 'react-native';
 
 function BookCategoryList({ route }: any) {
   const {
-    params: { value },
+    params: { listName },
   } = route;
-  const { data, isLoading, isError } = useReactQuery(bookCategoryList(value));
+
+  const { data, isLoading, isError } = useReactQuery(
+    bookCategoryList(listName),
+  );
   const results = (data as any)?.results;
 
   const getContent = (result: any) => [
@@ -25,7 +28,6 @@ function BookCategoryList({ route }: any) {
         isError={isError}
         isLoading={isLoading}
         results={results}
-        selectBy="display_name"
         getContent={getContent}
         handleClick={handleClick}
       />

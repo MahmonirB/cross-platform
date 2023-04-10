@@ -5,10 +5,10 @@ export const bookCategories = {
   },
 };
 
-export const bookCategoryList = (value: string) => ({
+export const bookCategoryList = (listName: string) => ({
   arg: {
     url: '/books/v3/lists.json',
     key: ['BookCategoryList'],
-    params: { list: value },
+    params: { list: listName },
   },
 });

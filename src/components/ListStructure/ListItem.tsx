@@ -9,7 +9,7 @@ interface ContentItem {
 interface BoolListItemProps {
   title?: string;
   content: ContentItem[];
-  onClick: () => void;
+  onClick(): void;
 }
 
 function ListItem({ title, content, onClick }: BoolListItemProps) {

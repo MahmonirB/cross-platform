@@ -3,7 +3,19 @@ import ListItem from './ListItem';
 import { EmptyState, ErrorState, LoadingState } from '../States';
 import { compose } from '@app/utils/compose';
 
-function ListStructure({ results, selectBy, getContent, handleClick }: any) {
+interface ListStructureProps {
+  results: any;
+  selectBy: string;
+  getContent: any;
+  handleClick: (value: string) => () => void;
+}
+
+function ListStructure({
+  results,
+  selectBy,
+  getContent,
+  handleClick,
+}: ListStructureProps) {
   return (
     <>
       {results
