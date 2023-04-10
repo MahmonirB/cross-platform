@@ -1,31 +1,19 @@
-import ListItem from '@app/components/ListItem';
+import { ListWithState } from '@app/components/ListStructure';
 import { bookCategoryList } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
 function BookCategoryList({ route }: any) {
   const {
-    params: { value },
+    params: { listName },
   } = route;
-  const { data, isLoading, isError } = useReactQuery(bookCategoryList(value));
+
+  const { data, isLoading, isError } = useReactQuery(
+    bookCategoryList(listName),
+  );
   const results = (data as any)?.results;
 
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  if (!results?.length || isError) {
-    return (
-      <View>
-        <Text>Data Not found...</Text>
-      </View>
-    );
-  }
   const getContent = (result: any) => [
     { name: 'Bestsellers date', value: result.bestsellers_date },
     { name: 'Published date', value: result.published_date },
@@ -36,15 +24,13 @@ function BookCategoryList({ route }: any) {
 
   return (
     <ScrollView style={styles.container}>
-      {results
-        ? results?.map((book: any) => (
-            <ListItem
-              key={`${book.display_name}-${book.bestsellers_date}`}
-              content={getContent(book)}
-              onClick={handleClick}
-            />
-          ))
-        : null}
+      <ListWithState
+        isError={isError}
+        isLoading={isLoading}
+        results={results}
+        getContent={getContent}
+        handleClick={handleClick}
+      />
     </ScrollView>
   );
 }
