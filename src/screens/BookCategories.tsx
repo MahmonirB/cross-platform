@@ -1,11 +1,11 @@
-import ListItem from '@app/components/ListItem';
+import { ListWithState } from '@app/components/ListStructure';
 import { bookCategories } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 
 function BookCategories({ navigation }: any) {
-  const { data } = useReactQuery(bookCategories);
+  const { data, isError, isLoading } = useReactQuery(bookCategories);
   const results = (data as any)?.results;
 
   const handleClick = (value: string) => () => {
@@ -20,16 +20,14 @@ function BookCategories({ navigation }: any) {
 
   return (
     <ScrollView style={styles.container}>
-      {results
-        ? results?.map((book: any) => (
-            <ListItem
-              key={`${book.display_name}-${book.newest_published_date}`}
-              title={book.display_name}
-              content={getContent(book)}
-              onClick={handleClick(book.display_name)}
-            />
-          ))
-        : null}
+      <ListWithState
+        isLoading={isLoading}
+        isError={isError}
+        results={results}
+        selectBy="display_name"
+        getContent={getContent}
+        handleClick={handleClick}
+      />
     </ScrollView>
   );
 }

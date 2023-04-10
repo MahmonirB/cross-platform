@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   text: {
     lineHeight: 18,
     fontSize: 14,
+    fontWeight: '500',
     paddingLeft: 8,
   },
   title: {
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
   textCaption: {
     lineHeight: 18,
     fontSize: 14,
+    fontWeight: '400',
     paddingLeft: 8,
     color: colors.captionGray,
   },
