@@ -1,8 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { Text, StyleSheet, Animated } from 'react-native';
 import typography from '../styles/typography';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@app/navigation/AppNavigator';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { AuthStackProps } from '@app/navigation/AuthenticateStack/AuthenticateStack';
 
-function AuthLoading(props: any) {
+type Props = CompositeScreenProps<
+  NativeStackScreenProps<AuthStackProps, 'AuthStack'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+function AuthLoading(props: Props) {
   const { navigation } = props;
   const fadeAnim = useRef(new Animated.Value(0)).current;
 

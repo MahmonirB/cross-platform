@@ -11,7 +11,7 @@ const Tabs = createBottomTabNavigator();
 
 const MainTabs = () => {
   return (
-    <Tabs.Navigator initialRouteName="Explore">
+    <Tabs.Navigator initialRouteName="Main Page">
       <Tabs.Screen
         name="Main Page"
         component={ExploreStackScreen}
@@ -21,7 +21,7 @@ const MainTabs = () => {
         }}
       />
       <Tabs.Screen
-        name="Book Category"
+        name="Book Categories"
         component={BookCategoryStackScreen}
         options={{
           tabBarLabel: '',

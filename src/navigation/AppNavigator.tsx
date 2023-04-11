@@ -1,11 +1,22 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../container/HomeScreen';
-import AuthenticateStack from './AuthenticateStack/AuthenticateStack';
+import AuthenticateStack, {
+  AuthStackProps,
+} from './AuthenticateStack/AuthenticateStack';
 import MainTabs from './TabStack/MainTabs';
 import BookCategoryList from '@app/screens/BookCategoryList';
+import { NavigatorScreenParams } from '@react-navigation/native';
+import { BottomTabStackProps } from './TabStack/MainTabStack';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  AuthenticateStack: NavigatorScreenParams<AuthStackProps>;
+  Main?: NavigatorScreenParams<BottomTabStackProps>;
+  Home: undefined;
+  BookCategoryList: { listName: string };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppNavigator() {
   return (

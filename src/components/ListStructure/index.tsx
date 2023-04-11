@@ -1,21 +1,21 @@
 import React from 'react';
-import ListItem from './ListItem';
+import ListItem, { ContentItem } from './ListItem';
 import { EmptyState, ErrorState, LoadingState } from '../States';
 import { compose } from '@app/utils/compose';
 
-interface ListStructureProps {
-  results: any;
+interface ListStructureProps<T> {
+  results: T[];
   selectBy: string;
-  getContent: any;
+  getContent: (value: string) => ContentItem[];
   handleClick: (value: string) => () => void;
 }
 
-function ListStructure({
+function ListStructure<T>({
   results,
   selectBy,
   getContent,
   handleClick,
-}: ListStructureProps) {
+}: ListStructureProps<T>) {
   return (
     <>
       {results
