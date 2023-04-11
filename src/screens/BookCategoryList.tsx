@@ -5,6 +5,8 @@ import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@app/navigation/AppNavigator';
+import { ResponseData } from './__types__/type';
+import { BookCategoryListData } from './__types__/getBookCategoryList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BookCategoryList'>;
 
@@ -16,9 +18,9 @@ function BookCategoryList({ route }: Props) {
   const { data, isLoading, isError } = useReactQuery(
     bookCategoryList(listName),
   );
-  const results = (data as any)?.results;
+  const results = (data as ResponseData<BookCategoryListData>)?.results;
 
-  const getContent = (result: any) => [
+  const getContent = (result: BookCategoryListData) => [
     { name: 'Bestsellers date', value: result.bestsellers_date },
     { name: 'Published date', value: result.published_date },
     { name: 'Rank last week', value: result.rank_last_week },

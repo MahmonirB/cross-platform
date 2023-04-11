@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { colors } from '@app/styles/colors';
 
-interface ContentItem {
+export interface ContentItem {
   name: string;
   value: string;
 }
