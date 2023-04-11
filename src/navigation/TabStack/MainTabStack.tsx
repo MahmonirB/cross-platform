@@ -5,10 +5,21 @@ import Settings from '@app/container/Settings';
 import Notifications from '@app/container/Notifications';
 import BookCategory from '@app/screens/BookCategories';
 
-const SettingsStack = createNativeStackNavigator();
-const NotificationsStack = createNativeStackNavigator();
-const BookCategoryStack = createNativeStackNavigator();
-const ExploreStack = createNativeStackNavigator();
+export type BottomTabStackProps = {
+  MainPage: undefined;
+  BookCategory: undefined;
+  Setting: undefined;
+  Notification: undefined;
+};
+
+const SettingsStack =
+  createNativeStackNavigator<Pick<BottomTabStackProps, 'Setting'>>();
+const NotificationsStack =
+  createNativeStackNavigator<Pick<BottomTabStackProps, 'Notification'>>();
+const BookCategoryStack =
+  createNativeStackNavigator<Pick<BottomTabStackProps, 'BookCategory'>>();
+const ExploreStack =
+  createNativeStackNavigator<Pick<BottomTabStackProps, 'MainPage'>>();
 
 export function ExploreStackScreen() {
   return (

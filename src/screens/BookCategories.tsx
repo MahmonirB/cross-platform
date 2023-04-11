@@ -3,8 +3,18 @@ import { bookCategories } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@app/navigation/AppNavigator';
+import { BottomTabStackProps } from '@app/navigation/TabStack/MainTabStack';
 
-function BookCategories({ navigation }: any) {
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<BottomTabStackProps, 'BookCategory'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+function BookCategories({ navigation }: Props) {
   const { data, isError, isLoading } = useReactQuery(bookCategories);
   const results = (data as any)?.results;
 

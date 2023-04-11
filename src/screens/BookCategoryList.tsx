@@ -3,8 +3,12 @@ import { bookCategoryList } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@app/navigation/AppNavigator';
 
-function BookCategoryList({ route }: any) {
+type Props = NativeStackScreenProps<RootStackParamList, 'BookCategoryList'>;
+
+function BookCategoryList({ route }: Props) {
   const {
     params: { listName },
   } = route;
