@@ -1,7 +1,7 @@
 import { ListWithState } from '@app/components/ListStructure';
 import { bookCategories } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -12,6 +12,7 @@ import { ResponseData } from './__types__/type';
 import { BookCategoriesData } from './__types__/getBookCategories';
 import SearchBar from '@app/components/SearchBar';
 import { colors } from '@app/styles/colors';
+import useDebounce from '@app/hooks/useDebounce';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<BottomTabStackProps, 'BookCategory'>,
@@ -23,6 +24,8 @@ function BookCategories({ navigation }: Props) {
   const { data, isError, isLoading } = useReactQuery(bookCategories);
   const results = (data as ResponseData<BookCategoriesData>)?.results;
 
+  const debouncedText = useDebounce(searchText, 1000);
+
   const handleClick = (listName: string) => () => {
     navigation.navigate('BookCategoryList', { listName });
   };
@@ -32,6 +35,12 @@ function BookCategories({ navigation }: Props) {
       name: item.replace('_', ' '),
       value: book[item as any],
     }));
+
+  useEffect(() => {
+    if (debouncedText) {
+      // logic for refetch with search params
+    }
+  }, [debouncedText]);
 
   return (
     <ScrollView style={styles.container}>
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
   },
   searchBox: {
     width: '100%',
-    height: 60,
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomColor: colors.borderGray,

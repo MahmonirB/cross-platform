@@ -1,15 +1,24 @@
 import { colors } from '@app/styles/colors';
 import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 function SearchBar({ placeholder, value, onChange }: any) {
   return (
-    <TextInput
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      style={styles.container}
-      placeholder={placeholder}
-    />
+    <View style={styles.container}>
+      <Icon
+        style={styles.icon}
+        name="search1"
+        size={16}
+        color={colors.textGray}
+      />
+      <TextInput
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        style={styles.input}
+        placeholder={placeholder}
+      />
+    </View>
   );
 }
 
@@ -17,14 +26,23 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   container: {
-    width: 296,
+    width: '100%',
+  },
+  icon: {
+    position: 'absolute',
+    top: 16,
+    left: 8,
+  },
+  input: {
+    width: '100%',
     height: 50,
+    marginBottom: 30,
     borderWidth: 1,
     borderColor: colors.borderGray,
     color: colors.lightBlackText,
     borderRadius: 16,
     paddingVertical: 2,
-    paddingHorizontal: 8,
-    backgroundColor: colors.secondary,
+    paddingLeft: 32,
+    backgroundColor: colors.disable,
   },
 });
