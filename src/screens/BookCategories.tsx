@@ -1,7 +1,7 @@
 import { ListWithState } from '@app/components/ListStructure';
 import { bookCategories } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';

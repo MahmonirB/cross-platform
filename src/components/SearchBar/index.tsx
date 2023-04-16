@@ -3,7 +3,13 @@ import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-function SearchBar({ placeholder, value, onChange }: any) {
+interface SearchBarProps {
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function SearchBar({ placeholder, value, onChange }: SearchBarProps) {
   return (
     <View style={styles.container}>
       <Icon
