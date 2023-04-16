@@ -20,7 +20,7 @@ type Props = CompositeScreenProps<
 >;
 
 function BookCategories({ navigation }: Props) {
-  const [searchText, setSearchText] = useState();
+  const [searchText, setSearchText] = useState('');
   const { data, isError, isLoading } = useReactQuery(bookCategories);
   const results = (data as ResponseData<BookCategoriesData>)?.results;
 
@@ -36,12 +36,6 @@ function BookCategories({ navigation }: Props) {
       value: book[item as any],
     }));
 
-  useEffect(() => {
-    if (debouncedText) {
-      // logic for refetch with search params
-    }
-  }, [debouncedText]);
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.searchBox}>
@@ -54,7 +48,11 @@ function BookCategories({ navigation }: Props) {
       <ListWithState
         isLoading={isLoading}
         isError={isError}
-        results={results}
+        results={
+          !debouncedText
+            ? results
+            : results?.filter(item => item.display_name.includes(debouncedText))
+        }
         selectBy="display_name"
         getContent={getContent}
         handleClick={handleClick}

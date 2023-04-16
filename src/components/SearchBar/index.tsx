@@ -18,6 +18,15 @@ function SearchBar({ placeholder, value, onChange }: any) {
         style={styles.input}
         placeholder={placeholder}
       />
+      {value ? (
+        <Icon
+          style={styles.closeIcon}
+          name="closecircle"
+          size={16}
+          color={colors.textGray}
+          onPress={() => onChange('')}
+        />
+      ) : null}
     </View>
   );
 }
@@ -44,5 +53,10 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingLeft: 32,
     backgroundColor: colors.disable,
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: 16,
+    right: 32,
   },
 });
