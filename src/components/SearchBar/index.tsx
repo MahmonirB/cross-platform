@@ -20,7 +20,7 @@ function SearchBar({ placeholder, value, onChange }: SearchBarProps) {
       />
       <TextInput
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChangeText={(text: string) => onChange(text)}
         style={styles.input}
         placeholder={placeholder}
       />

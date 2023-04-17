@@ -22,9 +22,15 @@ type Props = CompositeScreenProps<
 function BookCategories({ navigation }: Props) {
   const [searchText, setSearchText] = useState('');
   const { data, isError, isLoading } = useReactQuery(bookCategories);
-  const results = (data as ResponseData<BookCategoriesData>)?.results;
+  let results = (data as ResponseData<BookCategoriesData>)?.results;
 
   const debouncedText = useDebounce(searchText, 1000);
+
+  results = !debouncedText
+    ? results
+    : results?.filter(item =>
+        item.display_name.toLowerCase().includes(debouncedText.toLowerCase()),
+      );
 
   const handleClick = (listName: string) => () => {
     navigation.navigate('BookCategoryList', { listName });
@@ -48,11 +54,7 @@ function BookCategories({ navigation }: Props) {
       <ListWithState
         isLoading={isLoading}
         isError={isError}
-        results={
-          !debouncedText
-            ? results
-            : results?.filter(item => item.display_name.includes(debouncedText))
-        }
+        results={results}
         selectBy="display_name"
         getContent={getContent}
         handleClick={handleClick}
