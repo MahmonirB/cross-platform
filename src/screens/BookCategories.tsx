@@ -13,6 +13,7 @@ import { BookCategoriesData } from './__types__/getBookCategories';
 import SearchBar from '@app/components/SearchBar';
 import { colors } from '@app/styles/colors';
 import useDebounce from '@app/hooks/useDebounce';
+import { useTranslation } from 'react-i18next';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<BottomTabStackProps, 'BookCategory'>,
@@ -21,6 +22,7 @@ type Props = CompositeScreenProps<
 
 function BookCategories({ navigation }: Props) {
   const [searchText, setSearchText] = useState('');
+  const { t } = useTranslation();
   const { data, isError, isLoading } = useReactQuery(bookCategories);
   let results = (data as ResponseData<BookCategoriesData>)?.results;
 
@@ -46,7 +48,7 @@ function BookCategories({ navigation }: Props) {
     <ScrollView style={styles.container}>
       <View style={styles.searchBox}>
         <SearchBar
-          placeholder="Search..."
+          placeholder={`${t('search')}...`}
           value={searchText}
           onChange={setSearchText}
         />

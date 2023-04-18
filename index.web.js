@@ -2,6 +2,7 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
 import AntDesign from 'react-native-vector-icons/Fonts/AntDesign.ttf';
+import './src/config/i18n.js';
 
 const AntDesignStyles = `@font-face {
   src: url(${AntDesign});
