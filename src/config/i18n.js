@@ -6,11 +6,13 @@ i18n.use(initReactI18next).init({
     en: {
       translations: {
         search: 'Search',
+        selectLanguage: 'Select Language',
       },
     },
     de: {
       translations: {
         search: 'Suchen',
+        selectLanguage: 'Sprache auswählen',
       },
     },
   },
