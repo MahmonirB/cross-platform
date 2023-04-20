@@ -8,6 +8,7 @@ import MainTabs from './TabStack/MainTabs';
 import BookCategoryList from '@app/screens/BookCategoryList';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { BottomTabStackProps } from './TabStack/MainTabStack';
+import { useTranslation } from 'react-i18next';
 
 export type RootStackParamList = {
   AuthenticateStack: NavigatorScreenParams<AuthStackProps>;
@@ -19,6 +20,8 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppNavigator() {
+  const { t } = useTranslation();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -32,7 +35,13 @@ function AppNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="BookCategoryList" component={BookCategoryList} />
+      <Stack.Screen
+        name="BookCategoryList"
+        component={BookCategoryList}
+        options={{
+          title: `${t('bookCategoryList')}`,
+        }}
+      />
     </Stack.Navigator>
   );
 }
