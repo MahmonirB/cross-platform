@@ -1,0 +1,28 @@
+{
+  "en": {
+    "translations": {
+      "search": "Search",
+      "selectLanguage": "Select Language",
+      "mainPage": "Main Page",
+      "bookCategories": "Book Categories",
+      "settings": "Settings",
+      "bookCategoryList": "Book Category List",
+      "bestsellersDate": "Bestsellers date",
+      "publishedDate": "Published date",
+      "rankLastWeek": "Rank last week"
+    }
+  },
+  "de": {
+    "translations": {
+      "search": "Suchen",
+      "selectLanguage": "Sprache auswählen",
+      "mainPage": "Hauptseite",
+      "bookCategories": "Buchkategorien",
+      "settings": "Einstellungen",
+      "bookCategoryList": "Liste der Buchkategorien",
+      "bestsellersDate": "Bestseller-Datum",
+      "publishedDate": "Veröffentlichungsdatum",
+      "rankLastWeek": "Rang letzte Woche"
+    }
+  }
+}

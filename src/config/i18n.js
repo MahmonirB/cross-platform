@@ -1,21 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import translations from './translations.json';
 
 i18n.use(initReactI18next).init({
-  resources: {
-    en: {
-      translations: {
-        search: 'Search',
-        selectLanguage: 'Select Language',
-      },
-    },
-    de: {
-      translations: {
-        search: 'Suchen',
-        selectLanguage: 'Sprache auswählen',
-      },
-    },
-  },
+  resources: translations,
   fallbackLng: 'en',
   debug: true,
 

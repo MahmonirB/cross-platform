@@ -6,16 +6,20 @@ import {
   BookCategoryStackScreen,
 } from './MainTabStack';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useTranslation } from 'react-i18next';
 
 const Tabs = createBottomTabNavigator();
 
 const MainTabs = () => {
+  const { t } = useTranslation();
+
   return (
     <Tabs.Navigator initialRouteName="Main Page">
       <Tabs.Screen
         name="Main Page"
         component={ExploreStackScreen}
         options={{
+          title: `${t('mainPage')}`,
           tabBarLabel: '',
           tabBarIcon: () => <Icon name="home" size={24} />,
         }}
@@ -24,6 +28,7 @@ const MainTabs = () => {
         name="Book Categories"
         component={BookCategoryStackScreen}
         options={{
+          title: `${t('bookCategories')}`,
           tabBarLabel: '',
           tabBarIcon: () => <Icon name="book" size={24} />,
         }}
@@ -32,6 +37,7 @@ const MainTabs = () => {
         name="Settings"
         component={SettingsStackScreen}
         options={{
+          title: `${t('settings')}`,
           tabBarLabel: '',
           tabBarIcon: () => <Icon name="setting" size={24} />,
         }}

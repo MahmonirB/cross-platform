@@ -7,6 +7,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@app/navigation/AppNavigator';
 import { ResponseData } from './__types__/type';
 import { BookCategoryListData } from './__types__/getBookCategoryList';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BookCategoryList'>;
 
@@ -15,15 +16,17 @@ function BookCategoryList({ route }: Props) {
     params: { listName },
   } = route;
 
+  const { t } = useTranslation();
+
   const { data, isLoading, isError } = useReactQuery(
     bookCategoryList(listName),
   );
   const results = (data as ResponseData<BookCategoryListData>)?.results;
 
   const getContent = (result: BookCategoryListData) => [
-    { name: 'Bestsellers date', value: result.bestsellers_date },
-    { name: 'Published date', value: result.published_date },
-    { name: 'Rank last week', value: result.rank_last_week },
+    { name: t('bestsellersDate'), value: result.bestsellers_date },
+    { name: t('publishedDate'), value: result.published_date },
+    { name: t('rankLastWeek'), value: result.rank_last_week },
   ];
 
   const handleClick = () => {};
