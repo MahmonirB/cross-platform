@@ -32,13 +32,12 @@ function BookCategories({ navigation }: Props) {
     navigation.navigate('BookCategoryList', { listName });
   };
 
-  const getContent = () =>
-    results?.map(book =>
-      Object.entries(book).map(([key, value]) => ({
-        name: key.replace(/_/g, ' '),
-        value,
-      })),
-    );
+  const content = results?.map(book =>
+    Object.entries(book).map(([key, value]) => ({
+      name: key.replace(/_/g, ' '),
+      value,
+    })),
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -50,7 +49,7 @@ function BookCategories({ navigation }: Props) {
       <ListWithState
         isLoading={isLoading}
         isError={isError}
-        results={getContent()}
+        results={content}
         searchBy={debouncedText}
         selectBy="display name"
         handleClick={handleClick}
