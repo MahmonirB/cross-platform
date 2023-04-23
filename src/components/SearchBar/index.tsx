@@ -42,6 +42,12 @@ export default SearchBar;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: colors.borderGray,
+    borderBottomWidth: 1,
+    marginBottom: 24,
   },
   icon: {
     position: 'absolute',

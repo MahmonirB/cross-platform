@@ -1,29 +1,31 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ListItem, { ContentItem } from './ListItem';
-import { EmptyState, ErrorState, LoadingState } from '../States';
+import { EmptyState, ErrorState, LoadingState, SearchState } from '../States';
 import { compose } from '@app/utils/compose';
 
-interface ListStructureProps<T> {
-  results: T[];
+interface ListStructureProps {
+  results: Array<ContentItem[]>;
   selectBy: string;
-  getContent: (value: string) => ContentItem[];
   handleClick: (value: string) => () => void;
 }
 
-function ListStructure<T>({
-  results,
-  selectBy,
-  getContent,
-  handleClick,
-}: ListStructureProps<T>) {
+function ListStructure({ results, selectBy, handleClick }: ListStructureProps) {
+  const selectValue = useCallback(
+    (item: Array<ContentItem>) =>
+      item
+        ?.find((ele: any) => ele.name === selectBy)
+        ?.value?.replace(/' '/g, '_') || '',
+    [selectBy],
+  );
+
   return (
     <>
       {results
-        ? results?.map((item: any, index: number) => (
+        ? results?.map((item: Array<ContentItem>, index: number) => (
             <ListItem
               key={`${Object.values(item).toString()}-${index}`}
-              content={getContent(item)}
-              onClick={handleClick(item?.[selectBy])}
+              content={item}
+              onClick={handleClick(selectValue(item))}
             />
           ))
         : null}
@@ -36,4 +38,5 @@ export const ListWithState = compose(
   LoadingState,
   ErrorState,
   EmptyState,
+  SearchState,
 )(ListStructure);
