@@ -2,7 +2,7 @@ import { ListWithState } from '@app/components/ListStructure';
 import { bookCategories } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -28,37 +28,31 @@ function BookCategories({ navigation }: Props) {
 
   const debouncedText = useDebounce(searchText, 1000);
 
-  results = !debouncedText
-    ? results
-    : results?.filter(item =>
-        item.display_name.toLowerCase().includes(debouncedText.toLowerCase()),
-      );
-
   const handleClick = (listName: string) => () => {
     navigation.navigate('BookCategoryList', { listName });
   };
 
-  const getContent = (book: BookCategoriesData[]) =>
-    Object.keys(book).map(item => ({
-      name: item.replace('_', ' '),
-      value: book[item as any],
-    }));
+  const getContent = () =>
+    results?.map(book =>
+      Object.entries(book).map(([key, value]) => ({
+        name: key.replace(/_/g, ' '),
+        value,
+      })),
+    );
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.searchBox}>
-        <SearchBar
-          placeholder={`${t('search')}...`}
-          value={searchText}
-          onChange={setSearchText}
-        />
-      </View>
+      <SearchBar
+        placeholder={`${t('search')}...`}
+        value={searchText}
+        onChange={setSearchText}
+      />
       <ListWithState
         isLoading={isLoading}
         isError={isError}
-        results={results}
-        selectBy="display_name"
-        getContent={getContent}
+        results={getContent()}
+        searchBy={debouncedText}
+        selectBy="display name"
         handleClick={handleClick}
       />
     </ScrollView>

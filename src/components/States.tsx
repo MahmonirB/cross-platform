@@ -1,6 +1,7 @@
 import { WEB_ENV } from '@app/config';
 import { STATUS_TEXT } from '@app/constants/Variables';
 import { colors } from '@app/styles/colors';
+import searchResults from '@app/utils/searchResults';
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
@@ -8,11 +9,13 @@ interface StateProps {
   isLoading: boolean;
   isError: boolean;
   results: any;
+  searchBy: string;
 }
 
 type LoadingStateProps<T> = Pick<StateProps, 'isLoading'> & T;
 type ErrorStateProps<T> = Pick<StateProps, 'isError'> & T;
 type EmptyStateProps<T> = Pick<StateProps, 'results'> & T;
+type SearchStateProps<T> = Partial<StateProps> & T;
 
 export function LoadingState<T>(Component: FC<T>) {
   return (props: LoadingStateProps<T>) => {
@@ -55,6 +58,20 @@ export function EmptyState<T>(Component: FC<T>) {
         <View style={styles.container}>
           <Text>{STATUS_TEXT.empty}</Text>
         </View>
+      );
+    }
+
+    return <Component {...props} />;
+  };
+}
+
+export function SearchState<T>(Component: FC<T>) {
+  return (props: SearchStateProps<T>) => {
+    const { results, searchBy } = props;
+
+    if (searchBy) {
+      return (
+        <Component {...props} results={searchResults<T>(results)(searchBy)} />
       );
     }
 
