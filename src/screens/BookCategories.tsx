@@ -41,11 +41,14 @@ function BookCategories({ navigation }: Props) {
 
   return (
     <ScrollView style={styles.container}>
-      <SearchBar
-        placeholder={`${t('search')}...`}
-        value={searchText}
-        onChange={setSearchText}
-      />
+      {results?.length ? (
+        <SearchBar
+          placeholder={`${t('search')}...`}
+          value={searchText}
+          onChange={setSearchText}
+        />
+      ) : null}
+
       <ListWithState
         isLoading={isLoading}
         isError={isError}

@@ -37,11 +37,14 @@ function BookCategoryList({ route }: Props) {
 
   return (
     <ScrollView style={styles.container}>
-      <SearchBar
-        placeholder={`${t('search')}...`}
-        value={searchText}
-        onChange={setSearchText}
-      />
+      {results?.length ? (
+        <SearchBar
+          placeholder={`${t('search')}...`}
+          value={searchText}
+          onChange={setSearchText}
+        />
+      ) : null}
+
       <ListWithState
         isError={isError}
         isLoading={isLoading}

@@ -37,6 +37,6 @@ export default ListStructure;
 export const ListWithState = compose(
   LoadingState,
   ErrorState,
-  EmptyState,
   SearchState,
+  EmptyState,
 )(ListStructure);
