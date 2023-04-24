@@ -25,7 +25,8 @@ export function LoadingState<T>(Component: FC<T>) {
     if (isLoading) {
       return (
         <View style={styles.container}>
-          <Text>{STATUS_TEXT.loading}</Text>
+          <LazyImage name="spinner" />
+          <Text style={styles.text}>{STATUS_TEXT.loading}</Text>
         </View>
       );
     }
@@ -41,7 +42,8 @@ export function ErrorState<T>(Component: FC<T>) {
     if (isError) {
       return (
         <View style={styles.container}>
-          <Text>{STATUS_TEXT.error}</Text>
+          <LazyImage name="error" />
+          <Text style={styles.text}>{STATUS_TEXT.error}</Text>
         </View>
       );
     }
@@ -58,7 +60,7 @@ export function EmptyState<T>(Component: FC<T>) {
       return (
         <View style={styles.container}>
           <LazyImage name="emptyList" />
-          <Text style={styles.emptyImage}>{STATUS_TEXT.empty}</Text>
+          <Text style={styles.text}>{STATUS_TEXT.empty}</Text>
         </View>
       );
     }
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: colors.reasonGray,
   },
-  emptyImage: {
+  text: {
     marginTop: 24,
     fontSize: 16,
     fontWeight: '500',
