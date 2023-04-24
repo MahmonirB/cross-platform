@@ -20,7 +20,7 @@ function BookCategoryList({ route }: Props) {
   const [searchText, setSearchText] = useState('');
   const { t } = useTranslation();
 
-  const { data, isLoading, isError } = useReactQuery(
+  const { data, isLoading, isError, isFetching } = useReactQuery(
     bookCategoryList(listName),
   );
   const results = (data as ResponseData<BookCategoryListData>)?.results;
@@ -47,7 +47,7 @@ function BookCategoryList({ route }: Props) {
 
       <ListWithState
         isError={isError}
-        isLoading={isLoading}
+        isLoading={isLoading || isFetching}
         results={results?.map(getContent)}
         searchBy={debouncedText}
         handleClick={handleClick}
