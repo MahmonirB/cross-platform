@@ -4,6 +4,7 @@ import { colors } from '@app/styles/colors';
 import searchResults from '@app/utils/searchResults';
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import LazyImage from './LazyImage';
 
 interface StateProps {
   isLoading: boolean;
@@ -56,7 +57,8 @@ export function EmptyState<T>(Component: FC<T>) {
     if (!results?.length) {
       return (
         <View style={styles.container}>
-          <Text>{STATUS_TEXT.empty}</Text>
+          <LazyImage name="emptyList" />
+          <Text style={styles.emptyImage}>{STATUS_TEXT.empty}</Text>
         </View>
       );
     }
@@ -89,5 +91,10 @@ const styles = StyleSheet.create({
     fontSize: WEB_ENV ? 18 : 12,
     fontWeight: '500',
     color: colors.reasonGray,
+  },
+  emptyImage: {
+    marginTop: 24,
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
