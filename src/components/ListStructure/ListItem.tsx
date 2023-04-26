@@ -1,6 +1,13 @@
 import React, { memo } from 'react';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  Pressable,
+} from 'react-native';
 import { colors } from '@app/styles/colors';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export interface ContentItem {
   name: string;
@@ -15,7 +22,20 @@ interface BoolListItemProps {
 function ListItem({ title, content, onClick }: BoolListItemProps) {
   return (
     <TouchableOpacity style={styles.container} onPress={onClick}>
-      {title ? <Text style={styles.title}>{title}</Text> : null}
+      <View>
+        {title ? <Text style={styles.title}>{title}</Text> : null}
+        <Pressable
+          hitSlop={30}
+          onPress={() => {}}
+          style={pressed => (pressed ? styles.active : styles.inactive)}>
+          <Icon
+            style={styles.icon}
+            name="ellipsis1"
+            size={18}
+            color={colors.black}
+          />
+        </Pressable>
+      </View>
       {content?.map((item: ContentItem) => (
         <Text key={`${item.name}-${item.value}`} style={styles.text}>
           <Text style={styles.textCaption}>{item.name}:</Text> {item.value}
@@ -41,9 +61,21 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 24,
     paddingVertical: 16,
-    border: '1px solid #ccc',
     borderRadius: 16,
     backgroundColor: colors.white,
+    boxShadow: '#ccc 1px 0px 8px 0px',
+  },
+  active: {
+    backgroundColor: colors.lightGray,
+  },
+  inactive: {
+    backgroundColor: 'transparent',
+  },
+  icon: {
+    position: 'absolute',
+    top: 16,
+    right: 8,
+    transform: 'rotate(90deg)' as any,
   },
   text: {
     lineHeight: 18,
