@@ -25,7 +25,7 @@ function BookCategories({ navigation }: Props) {
   const { t } = useTranslation();
   const { data, isError, isLoading, isFetching } =
     useReactQuery(bookCategories);
-  let results = (data as ResponseData<BookCategoriesData>)?.results;
+  const results = (data as ResponseData<BookCategoriesData>)?.results;
 
   const debouncedText = useDebounce(searchText, 1000);
 
