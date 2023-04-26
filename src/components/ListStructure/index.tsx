@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import ListItem, { ContentItem } from './ListItem';
 import { EmptyState, ErrorState, LoadingState, SearchState } from '../States';
 import { compose } from '@app/utils/compose';
@@ -32,7 +32,14 @@ function ListStructure({ results, selectBy, handleClick }: ListStructureProps) {
     </>
   );
 }
-export default ListStructure;
+const isDeepStrictEqual = (
+  prevProps: ListStructureProps,
+  nextProps: ListStructureProps,
+) =>
+  prevProps.selectBy === nextProps.selectBy &&
+  JSON.stringify(prevProps.results) === JSON.stringify(nextProps.results);
+
+export default memo(ListStructure, isDeepStrictEqual);
 
 export const ListWithState = compose(
   LoadingState,

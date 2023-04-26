@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { colors } from '@app/styles/colors';
 
@@ -24,7 +24,15 @@ function ListItem({ title, content, onClick }: BoolListItemProps) {
     </TouchableOpacity>
   );
 }
-export default ListItem;
+
+const isDeepStrictEqual = (
+  prevProps: BoolListItemProps,
+  nextProps: BoolListItemProps,
+) =>
+  prevProps.title === nextProps.title &&
+  JSON.stringify(prevProps.content) === JSON.stringify(nextProps.content);
+
+export default memo(ListItem, isDeepStrictEqual);
 
 const styles = StyleSheet.create({
   container: {
