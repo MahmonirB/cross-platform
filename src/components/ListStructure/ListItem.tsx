@@ -16,11 +16,12 @@ export interface ContentItem {
 }
 interface BoolListItemProps {
   title?: string;
+  showMenu?: boolean;
   content: ContentItem[];
   onClick(): void;
 }
 
-function ListItem({ title, content, onClick }: BoolListItemProps) {
+function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const [open, setOpen] = useState(false);
 
   const handleClose = useCallback(() => setOpen(false), []);
@@ -31,18 +32,22 @@ function ListItem({ title, content, onClick }: BoolListItemProps) {
     <TouchableOpacity style={styles.container} onPress={onClick}>
       <View>
         {title ? <Text style={styles.title}>{title}</Text> : null}
-        <Pressable
-          hitSlop={30}
-          onPress={handleOpen}
-          style={pressed => (pressed ? styles.active : styles.inactive)}>
-          <Icon
-            style={styles.icon}
-            name="ellipsis1"
-            size={18}
-            color={colors.black}
-          />
-        </Pressable>
-        {open ? <Menu isFavorite onClose={handleClose} /> : null}
+        {showMenu ? (
+          <>
+            <Pressable
+              hitSlop={30}
+              onPress={handleOpen}
+              style={pressed => (pressed ? styles.active : styles.inactive)}>
+              <Icon
+                style={styles.icon}
+                name="ellipsis1"
+                size={18}
+                color={colors.black}
+              />
+            </Pressable>
+            {open ? <Menu isFavorite onClose={handleClose} /> : null}
+          </>
+        ) : null}
       </View>
       {content?.map((item: ContentItem) => (
         <Text key={`${item.name}-${item.value}`} style={styles.text}>
