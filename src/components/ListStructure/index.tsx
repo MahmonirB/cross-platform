@@ -6,10 +6,16 @@ import { compose } from '@app/utils/compose';
 interface ListStructureProps {
   results: Array<ContentItem[]>;
   selectBy: string;
+  showMenu?: boolean;
   handleClick: (value: string) => () => void;
 }
 
-function ListStructure({ results, selectBy, handleClick }: ListStructureProps) {
+function ListStructure({
+  results,
+  showMenu,
+  selectBy,
+  handleClick,
+}: ListStructureProps) {
   const selectValue = useCallback(
     (item: Array<ContentItem>) =>
       item
@@ -25,6 +31,7 @@ function ListStructure({ results, selectBy, handleClick }: ListStructureProps) {
             <ListItem
               key={`${Object.values(item).toString()}-${index}`}
               content={item}
+              showMenu={showMenu}
               onClick={handleClick(selectValue(item))}
             />
           ))

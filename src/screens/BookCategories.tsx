@@ -51,6 +51,7 @@ function BookCategories({ navigation }: Props) {
       ) : null}
 
       <ListWithState
+        showMenu
         isLoading={isLoading || isFetching}
         isError={isError}
         results={content}
