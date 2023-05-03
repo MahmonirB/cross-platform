@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { colors } from '@app/styles/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Menu from './Menu';
 
 export interface ContentItem {
   name: string;
@@ -20,13 +21,19 @@ interface BoolListItemProps {
 }
 
 function ListItem({ title, content, onClick }: BoolListItemProps) {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = useCallback(() => setOpen(false), []);
+
+  const handleOpen = useCallback(() => setOpen(true), []);
+
   return (
     <TouchableOpacity style={styles.container} onPress={onClick}>
       <View>
         {title ? <Text style={styles.title}>{title}</Text> : null}
         <Pressable
           hitSlop={30}
-          onPress={() => {}}
+          onPress={handleOpen}
           style={pressed => (pressed ? styles.active : styles.inactive)}>
           <Icon
             style={styles.icon}
@@ -35,6 +42,7 @@ function ListItem({ title, content, onClick }: BoolListItemProps) {
             color={colors.black}
           />
         </Pressable>
+        {open ? <Menu isFavorite onClose={handleClose} /> : null}
       </View>
       {content?.map((item: ContentItem) => (
         <Text key={`${item.name}-${item.value}`} style={styles.text}>
