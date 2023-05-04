@@ -7,9 +7,16 @@ import { useOnClickOutside } from '@app/hooks/useOutsideClick';
 interface MenuProps {
   isFavorite: boolean;
   onClose: () => void;
+  addToFavorite: () => void;
+  removeFromFavorite: () => void;
 }
 
-function Menu({ isFavorite, onClose }: MenuProps) {
+function Menu({
+  isFavorite,
+  onClose,
+  addToFavorite,
+  removeFromFavorite,
+}: MenuProps) {
   const menuRef = useRef(null);
   useOnClickOutside(menuRef, onClose);
 
@@ -17,22 +24,34 @@ function Menu({ isFavorite, onClose }: MenuProps) {
     {
       title: 'favorite',
       icon: isFavorite ? 'heart' : 'hearto',
+      color: isFavorite ? colors.danger : '',
+      onPress: () => {
+        if (isFavorite) {
+          removeFromFavorite();
+          return null;
+        }
+        addToFavorite();
+      },
     },
     {
       title: 'share',
       icon: 'sharealt',
+      onPress: () => {},
     },
   ];
 
   return (
     <View ref={menuRef} style={styles.menu}>
       {MENU_LIST.map(item => (
-        <TouchableOpacity key={item.title} style={styles.row}>
+        <TouchableOpacity
+          onPress={item.onPress}
+          key={item.title}
+          style={styles.row}>
           <Icon
             style={styles.icon}
             name={item.icon}
             size={18}
-            color={colors.black}
+            color={item?.color ?? colors.captionGray}
           />
           <Text>{item.title}</Text>
         </TouchableOpacity>
@@ -63,6 +82,5 @@ const styles = StyleSheet.create({
   icon: {
     width: 16,
     marginRight: 16,
-    color: colors.captionGray,
   },
 });

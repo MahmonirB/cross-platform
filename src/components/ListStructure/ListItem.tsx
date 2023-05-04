@@ -9,6 +9,7 @@ import {
 import { colors } from '@app/styles/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Menu from './Menu';
+import { useFavorite } from '@app/store/favorites';
 
 export interface ContentItem {
   name: string;
@@ -24,9 +25,26 @@ interface BoolListItemProps {
 function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const [open, setOpen] = useState(false);
 
+  const categoryName: any = useFavorite((state: any) => state.categoryName);
+  const updateCategoryName: any = useFavorite(
+    (state: any) => state.updateCategoryName,
+  );
+
   const handleClose = useCallback(() => setOpen(false), []);
 
   const handleOpen = useCallback(() => setOpen(true), []);
+
+  const addToFavorite = () =>
+    updateCategoryName([...categoryName, content[0]?.value]);
+
+  const removeFromFavorite = () => {
+    const currentCategoryName = [...categoryName];
+    const index = categoryName?.findIndex(
+      (item: string) => item === content[0]?.value,
+    );
+    currentCategoryName?.splice(index, 1);
+    updateCategoryName(currentCategoryName);
+  };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onClick}>
@@ -45,7 +63,14 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
                 color={colors.black}
               />
             </Pressable>
-            {open ? <Menu isFavorite onClose={handleClose} /> : null}
+            {open ? (
+              <Menu
+                isFavorite={categoryName?.includes(content[0]?.value)}
+                addToFavorite={addToFavorite}
+                removeFromFavorite={removeFromFavorite}
+                onClose={handleClose}
+              />
+            ) : null}
           </>
         ) : null}
       </View>
