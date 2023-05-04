@@ -7,9 +7,10 @@ import { useOnClickOutside } from '@app/hooks/useOutsideClick';
 interface MenuProps {
   isFavorite: boolean;
   onClose: () => void;
+  addToFavorite: () => void;
 }
 
-function Menu({ isFavorite, onClose }: MenuProps) {
+function Menu({ isFavorite, onClose, addToFavorite }: MenuProps) {
   const menuRef = useRef(null);
   useOnClickOutside(menuRef, onClose);
 
@@ -17,17 +18,22 @@ function Menu({ isFavorite, onClose }: MenuProps) {
     {
       title: 'favorite',
       icon: isFavorite ? 'heart' : 'hearto',
+      onPress: () => (isFavorite ? addToFavorite : null),
     },
     {
       title: 'share',
       icon: 'sharealt',
+      onPress: () => {},
     },
   ];
 
   return (
     <View ref={menuRef} style={styles.menu}>
       {MENU_LIST.map(item => (
-        <TouchableOpacity key={item.title} style={styles.row}>
+        <TouchableOpacity
+          onPress={item.onPress}
+          key={item.title}
+          style={styles.row}>
           <Icon
             style={styles.icon}
             name={item.icon}
