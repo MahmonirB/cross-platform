@@ -25,18 +25,26 @@ interface BoolListItemProps {
 function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const [open, setOpen] = useState(false);
 
-  const favorites: any = useFavorite();
-  // console.log({ favorites });
+  const categoryName: any = useFavorite((state: any) => state.categoryName);
+  const updateCategoryName: any = useFavorite(
+    (state: any) => state.updateCategoryName,
+  );
 
   const handleClose = useCallback(() => setOpen(false), []);
 
   const handleOpen = useCallback(() => setOpen(true), []);
 
   const addToFavorite = () =>
-    favorites?.updateCategoryName([
-      ...favorites.categoryName,
-      content[0]?.value,
-    ]);
+    updateCategoryName([...categoryName, content[0]?.value]);
+
+  const removeFromFavorite = () => {
+    const currentCategoryName = [...categoryName];
+    const index = categoryName?.findIndex(
+      (item: string) => item === content[0]?.value,
+    );
+    currentCategoryName?.splice(index, 1);
+    updateCategoryName(currentCategoryName);
+  };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onClick}>
@@ -57,10 +65,9 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
             </Pressable>
             {open ? (
               <Menu
-                isFavorite={favorites?.categoryName?.includes(
-                  content[0]?.value,
-                )}
+                isFavorite={categoryName?.includes(content[0]?.value)}
                 addToFavorite={addToFavorite}
+                removeFromFavorite={removeFromFavorite}
                 onClose={handleClose}
               />
             ) : null}

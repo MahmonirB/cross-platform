@@ -8,9 +8,15 @@ interface MenuProps {
   isFavorite: boolean;
   onClose: () => void;
   addToFavorite: () => void;
+  removeFromFavorite: () => void;
 }
 
-function Menu({ isFavorite, onClose, addToFavorite }: MenuProps) {
+function Menu({
+  isFavorite,
+  onClose,
+  addToFavorite,
+  removeFromFavorite,
+}: MenuProps) {
   const menuRef = useRef(null);
   useOnClickOutside(menuRef, onClose);
 
@@ -18,7 +24,14 @@ function Menu({ isFavorite, onClose, addToFavorite }: MenuProps) {
     {
       title: 'favorite',
       icon: isFavorite ? 'heart' : 'hearto',
-      onPress: () => (isFavorite ? addToFavorite : null),
+      color: isFavorite ? colors.danger : '',
+      onPress: () => {
+        if (isFavorite) {
+          removeFromFavorite();
+          return null;
+        }
+        addToFavorite();
+      },
     },
     {
       title: 'share',
@@ -38,7 +51,7 @@ function Menu({ isFavorite, onClose, addToFavorite }: MenuProps) {
             style={styles.icon}
             name={item.icon}
             size={18}
-            color={colors.black}
+            color={item?.color ?? colors.captionGray}
           />
           <Text>{item.title}</Text>
         </TouchableOpacity>
@@ -69,6 +82,5 @@ const styles = StyleSheet.create({
   icon: {
     width: 16,
     marginRight: 16,
-    color: colors.captionGray,
   },
 });

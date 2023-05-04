@@ -5,9 +5,13 @@ export const useFavorite = create(
   persist(
     set => ({
       categoryName: [],
-      updateCategoryName: (newCategoryName: string) =>
+      updateCategoryName: (newCategoryName: string[]) =>
         set(() => ({
           categoryName: newCategoryName,
+        })),
+      resetCategoryName: () =>
+        set(() => ({
+          categoryName: [],
         })),
     }),
     {
