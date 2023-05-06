@@ -20,18 +20,20 @@ function Menu({
   const menuRef = useRef(null);
   useOnClickOutside(menuRef, onClose);
 
+  const onFavoritePress = () => {
+    if (isFavorite) {
+      removeFromFavorite();
+      return null;
+    }
+    addToFavorite();
+  };
+
   const MENU_LIST = [
     {
       title: 'favorite',
       icon: isFavorite ? 'heart' : 'hearto',
       color: isFavorite ? colors.danger : '',
-      onPress: () => {
-        if (isFavorite) {
-          removeFromFavorite();
-          return null;
-        }
-        addToFavorite();
-      },
+      onPress: onFavoritePress,
     },
     {
       title: 'share',
