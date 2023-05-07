@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     width: '100%',
     top: 45,
     zIndex: 2,
-    maxHeight: 200,
+    maxHeight: 300,
+    overflow: 'scroll',
   },
   autoRow: {
     flexDirection: 'row',

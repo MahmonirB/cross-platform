@@ -9,6 +9,7 @@ import { ResponseData } from './__types__/type';
 import { BookCategoryListData } from './__types__/getBookCategoryList';
 import { useTranslation } from 'react-i18next';
 import AutoCompleteSearch from '@app/container/AutoCompleteSearch';
+import { getAllObjValues } from '@app/utils/getAllObjValues';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BookCategoryList'>;
 
@@ -36,7 +37,7 @@ function BookCategoryList({ route }: Props) {
     <ScrollView style={styles.container}>
       {results?.length ? (
         <AutoCompleteSearch
-          keyWordList={['2023', '2021', '14', '05', '11']}
+          keyWordList={getAllObjValues(results?.map(getContent))}
           onSelectText={setSearchText}
         />
       ) : null}
