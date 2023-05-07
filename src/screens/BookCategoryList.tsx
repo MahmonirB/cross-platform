@@ -8,8 +8,7 @@ import { RootStackParamList } from '@app/navigation/AppNavigator';
 import { ResponseData } from './__types__/type';
 import { BookCategoryListData } from './__types__/getBookCategoryList';
 import { useTranslation } from 'react-i18next';
-import SearchBar from '@app/components/SearchBar';
-import useDebounce from '@app/hooks/useDebounce';
+import AutoCompleteSearch from '@app/container/AutoCompleteSearch';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'BookCategoryList'>;
 
@@ -25,8 +24,6 @@ function BookCategoryList({ route }: Props) {
   );
   const results = (data as ResponseData<BookCategoryListData>)?.results;
 
-  const debouncedText = useDebounce(searchText, 1000);
-
   const getContent = (result: BookCategoryListData) => [
     { name: t('bestsellersDate'), value: result.bestsellers_date },
     { name: t('publishedDate'), value: result.published_date },
@@ -38,10 +35,9 @@ function BookCategoryList({ route }: Props) {
   return (
     <ScrollView style={styles.container}>
       {results?.length ? (
-        <SearchBar
-          placeholder={`${t('search')}...`}
-          value={searchText}
-          onChange={setSearchText}
+        <AutoCompleteSearch
+          keyWordList={['2023', '2021', '14', '05', '11']}
+          onSelectText={setSearchText}
         />
       ) : null}
 
@@ -49,7 +45,7 @@ function BookCategoryList({ route }: Props) {
         isError={isError}
         isLoading={isLoading || isFetching}
         results={results?.map(getContent)}
-        searchBy={debouncedText}
+        searchBy={searchText}
         handleClick={handleClick}
       />
     </ScrollView>
