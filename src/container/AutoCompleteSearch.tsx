@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import SearchBar from '@app/components/SearchBar';
@@ -25,7 +25,28 @@ function AutoCompleteSearch({
     handleKeyDown,
   } = useAutocomplete();
 
-  const hasSuggestions = !(Array.isArray(suggestions) && !suggestions.length);
+  const hasSuggestions = useMemo(
+    () => !(Array.isArray(suggestions) && !suggestions.length),
+    [suggestions],
+  );
+
+  const handleTextChange = useCallback(
+    (text: string) => {
+      handleValueChange(text, keyWordList);
+      if (!text) {
+        onSelectText('');
+      }
+    },
+    [keyWordList, onSelectText, handleValueChange],
+  );
+
+  const handleSelectItem = useCallback(
+    (itemValue: string) => {
+      onSelectText(value);
+      select(itemValue);
+    },
+    [onSelectText, select, value],
+  );
 
   return (
     <>
@@ -33,12 +54,7 @@ function AutoCompleteSearch({
         placeholder={`${t('search')}...`}
         value={value}
         onKeyDown={data => handleKeyDown(data, onSelectText)}
-        onChange={(text: string) => {
-          handleValueChange(text, keyWordList);
-          if (!text) {
-            onSelectText('');
-          }
-        }}
+        onChange={handleTextChange}
       />
       {hasSuggestions && (
         <View style={styles.autoMenu}>
@@ -49,10 +65,7 @@ function AutoCompleteSearch({
                 styles.autoRow,
                 i === currentFocus ? styles.activeItem : null,
               ]}
-              onPress={() => {
-                onSelectText(value);
-                select(itemValue);
-              }}>
+              onPress={() => handleSelectItem(itemValue)}>
               <Text style={styles.searchText}>{value}</Text>
               {rest}
             </TouchableOpacity>

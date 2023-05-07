@@ -1,6 +1,12 @@
 import { colors } from '@app/styles/colors';
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  StyleSheet,
+  TextInput,
+  TextInputKeyPressEventData,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 interface SearchBarProps {
@@ -16,6 +22,12 @@ function SearchBar({
   onKeyDown,
   onChange,
 }: SearchBarProps) {
+  const handleKeyPress = (
+    e: NativeSyntheticEvent<TextInputKeyPressEventData>,
+  ) => {
+    e?.nativeEvent?.key ? onKeyDown?.({ key: e?.nativeEvent?.key }) : null;
+  };
+
   return (
     <View style={styles.container}>
       <Icon
@@ -26,14 +38,8 @@ function SearchBar({
       />
       <TextInput
         value={value}
-        onKeyPress={e => {
-          e?.nativeEvent?.key
-            ? onKeyDown?.({ key: e?.nativeEvent?.key })
-            : null;
-        }}
-        onChangeText={(text: string) => {
-          onChange(text);
-        }}
+        onKeyPress={handleKeyPress}
+        onChangeText={onChange}
         style={styles.input}
         placeholder={placeholder}
       />
