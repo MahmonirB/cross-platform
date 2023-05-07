@@ -32,7 +32,7 @@ function AutoCompleteSearch({
       <SearchBar
         placeholder={`${t('search')}...`}
         value={value}
-        onKeyDown={handleKeyDown}
+        onKeyDown={data => handleKeyDown(data, onSelectText)}
         onChange={(text: string) => {
           handleValueChange(text, keyWordList);
           if (!text) {

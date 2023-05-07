@@ -45,7 +45,10 @@ const useAutocomplete = () => {
 
   const select = (text: string) => setState({ ...INITIAL_STATE, value: text });
 
-  const handleKeyDown = ({ key }: { key: string }) => {
+  const handleKeyDown = (
+    { key }: { key: string },
+    callBack: (value: string) => void,
+  ) => {
     switch (key) {
       case 'ArrowDown':
         setState(s => ({
@@ -67,7 +70,9 @@ const useAutocomplete = () => {
         break;
       case 'Enter':
         if (currentFocus !== null && currentFocus !== -1) {
-          select(suggestions[currentFocus].itemValue);
+          const selectedText = suggestions[currentFocus].itemValue;
+          select(selectedText);
+          callBack(selectedText);
         }
         break;
       default:
