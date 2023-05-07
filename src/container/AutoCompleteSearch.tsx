@@ -21,8 +21,8 @@ function AutoCompleteSearch({
     handleValueChange,
     suggestions,
     select,
-    // currentFocus,
-    // handleKeyDown,
+    currentFocus,
+    handleKeyDown,
   } = useAutocomplete();
 
   const hasSuggestions = !(Array.isArray(suggestions) && !suggestions.length);
@@ -32,21 +32,28 @@ function AutoCompleteSearch({
       <SearchBar
         placeholder={`${t('search')}...`}
         value={value}
+        onKeyDown={handleKeyDown}
         onChange={(text: string) => {
           handleValueChange(text, keyWordList);
+          if (!text) {
+            onSelectText('');
+          }
         }}
       />
       {hasSuggestions && (
         <View style={styles.autoMenu}>
-          {suggestions?.map(({ rest, itemValue }: any) => (
+          {suggestions?.map(({ rest, itemValue }: any, i) => (
             <TouchableOpacity
               key={itemValue}
-              style={styles.autoRow}
+              style={[
+                styles.autoRow,
+                i === currentFocus ? styles.activeItem : null,
+              ]}
               onPress={() => {
                 onSelectText(value);
                 select(itemValue);
               }}>
-              <Text>{value}</Text>
+              <Text style={styles.searchText}>{value}</Text>
               {rest}
             </TouchableOpacity>
           ))}
@@ -71,8 +78,15 @@ const styles = StyleSheet.create({
     maxHeight: 200,
   },
   autoRow: {
+    flexDirection: 'row',
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: colors.borderGray,
+  },
+  searchText: {
+    color: colors.danger,
+  },
+  activeItem: {
+    backgroundColor: colors.blueSettingBg,
   },
 });

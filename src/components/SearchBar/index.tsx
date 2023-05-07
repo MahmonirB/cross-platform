@@ -6,10 +6,16 @@ import Icon from 'react-native-vector-icons/AntDesign';
 interface SearchBarProps {
   placeholder: string;
   value: string;
+  onKeyDown?: ({ key }: { key: string }) => void;
   onChange: (value: string) => void;
 }
 
-function SearchBar({ placeholder, value, onChange }: SearchBarProps) {
+function SearchBar({
+  placeholder,
+  value,
+  onKeyDown,
+  onChange,
+}: SearchBarProps) {
   return (
     <View style={styles.container}>
       <Icon
@@ -20,7 +26,14 @@ function SearchBar({ placeholder, value, onChange }: SearchBarProps) {
       />
       <TextInput
         value={value}
-        onChangeText={(text: string) => onChange(text)}
+        onKeyPress={e => {
+          e?.nativeEvent?.key
+            ? onKeyDown?.({ key: e?.nativeEvent?.key })
+            : null;
+        }}
+        onChangeText={(text: string) => {
+          onChange(text);
+        }}
         style={styles.input}
         placeholder={placeholder}
       />
