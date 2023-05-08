@@ -67,7 +67,7 @@ function AutoCompleteSearch({
               ]}
               onPress={() => handleSelectItem(itemValue)}>
               <Text style={styles.searchText}>{value}</Text>
-              {rest}
+              <Text>{rest}</Text>
             </TouchableOpacity>
           ))}
         </View>
