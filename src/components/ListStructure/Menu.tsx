@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
   menu: {
     position: 'absolute',
     width: 200,
-    height: 90,
     right: 10,
     backgroundColor: colors.white,
     borderRadius: 8,
