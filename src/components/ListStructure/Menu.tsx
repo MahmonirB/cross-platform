@@ -6,6 +6,7 @@ import { useOnClickOutside } from '@app/hooks/useOutsideClick';
 
 interface MenuProps {
   isFavorite: boolean;
+  onCopy: () => void;
   onClose: () => void;
   addToFavorite: () => void;
   removeFromFavorite: () => void;
@@ -13,6 +14,7 @@ interface MenuProps {
 
 function Menu({
   isFavorite,
+  onCopy,
   onClose,
   addToFavorite,
   removeFromFavorite,
@@ -39,6 +41,11 @@ function Menu({
       title: 'share',
       icon: 'sharealt',
       onPress: () => {},
+    },
+    {
+      title: 'copy',
+      icon: 'copy1',
+      onPress: onCopy,
     },
   ];
 

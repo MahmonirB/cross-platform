@@ -10,6 +10,7 @@ import { colors } from '@app/styles/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Menu from './Menu';
 import { useFavorite } from '@app/store/favorites';
+import useClipboard from '@app/hooks/useClipboard';
 
 export interface ContentItem {
   name: string;
@@ -24,6 +25,8 @@ interface BoolListItemProps {
 
 function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const [open, setOpen] = useState(false);
+
+  const [, setToClipboard] = useClipboard();
 
   const categoryName: any = useFavorite((state: any) => state.categoryName);
   const updateCategoryName: any = useFavorite(
@@ -46,6 +49,8 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
     updateCategoryName(currentCategoryName);
   };
 
+  const onCopy = () => setToClipboard(content[0]?.value);
+
   return (
     <TouchableOpacity style={styles.container} onPress={onClick}>
       <View>
@@ -66,6 +71,7 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
             {open ? (
               <Menu
                 isFavorite={categoryName?.includes(content[0]?.value)}
+                onCopy={onCopy}
                 addToFavorite={addToFavorite}
                 removeFromFavorite={removeFromFavorite}
                 onClose={handleClose}
