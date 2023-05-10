@@ -10,14 +10,17 @@ function useClipboard() {
       const content = await Clipboard.getString();
       return content;
     }
-    return '';
+    const text = await navigator.clipboard.readText();
+    return text;
   };
 
-  const setToClipboard = (text: string) => {
+  const setToClipboard = async (text: string) => {
     if (!WEB_ENV) {
       Clipboard.setString(text);
-      toast.show('Copied!');
+    } else {
+      await navigator.clipboard.writeText(text);
     }
+    toast.show('Copied!');
   };
 
   return [getClipboard, setToClipboard];
