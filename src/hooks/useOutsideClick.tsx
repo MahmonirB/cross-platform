@@ -1,3 +1,4 @@
+import { WEB_ENV } from '@app/config';
 import { useEffect, RefObject } from 'react';
 
 type Event = MouseEvent | TouchEvent;
@@ -7,21 +8,23 @@ export const useOnClickOutside = <T extends HTMLElement = HTMLElement>(
   handler: (event: Event) => void,
 ) => {
   useEffect(() => {
-    const listener = (event: Event) => {
-      const el = ref?.current;
-      if (!el || el.contains((event?.target as Node) || null)) {
-        return;
-      }
+    if (WEB_ENV) {
+      const listener = (event: Event) => {
+        const el = ref?.current;
+        if (!el || el.contains((event?.target as Node) || null)) {
+          return;
+        }
 
-      handler(event);
-    };
+        handler(event);
+      };
 
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
+      document.addEventListener('mousedown', listener);
+      document.addEventListener('touchstart', listener);
 
-    return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
-    };
+      return () => {
+        document.removeEventListener('mousedown', listener);
+        document.removeEventListener('touchstart', listener);
+      };
+    }
   }, [ref, handler]);
 };

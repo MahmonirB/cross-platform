@@ -52,40 +52,40 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const onCopy = () => setToClipboard(content[0]?.value);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onClick}>
-      <View>
-        {title ? <Text style={styles.title}>{title}</Text> : null}
-        {showMenu ? (
-          <>
-            <Pressable
-              hitSlop={30}
-              onPress={handleOpen}
-              style={pressed => (pressed ? styles.active : styles.inactive)}>
-              <Icon
-                style={styles.icon}
-                name="ellipsis1"
-                size={18}
-                color={colors.black}
-              />
-            </Pressable>
-            {open ? (
-              <Menu
-                isFavorite={categoryName?.includes(content[0]?.value)}
-                onCopy={onCopy}
-                addToFavorite={addToFavorite}
-                removeFromFavorite={removeFromFavorite}
-                onClose={handleClose}
-              />
-            ) : null}
-          </>
-        ) : null}
-      </View>
-      {content?.map((item: ContentItem) => (
-        <Text key={`${item.name}-${item.value}`} style={styles.text}>
-          <Text style={styles.textCaption}>{item.name}:</Text> {item.value}
-        </Text>
-      ))}
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity style={styles.container} onPress={onClick}>
+        <View>{title ? <Text style={styles.title}>{title}</Text> : null}</View>
+        {content?.map((item: ContentItem) => (
+          <Text key={`${item.name}-${item.value}`} style={styles.text}>
+            <Text style={styles.textCaption}>{item.name}:</Text> {item.value}
+          </Text>
+        ))}
+      </TouchableOpacity>
+      {showMenu ? (
+        <View style={styles.menuContainer}>
+          <Pressable
+            hitSlop={30}
+            onPress={handleOpen}
+            style={pressed => (pressed ? styles.active : styles.inactive)}>
+            <Icon
+              style={styles.icon}
+              name="ellipsis1"
+              size={18}
+              color={colors.black}
+            />
+          </Pressable>
+          {open ? (
+            <Menu
+              isFavorite={categoryName?.includes(content[0]?.value)}
+              onCopy={onCopy}
+              addToFavorite={addToFavorite}
+              removeFromFavorite={removeFromFavorite}
+              onClose={handleClose}
+            />
+          ) : null}
+        </View>
+      ) : null}
+    </View>
   );
 }
 
@@ -108,6 +108,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: colors.white,
     boxShadow: '#ccc 1px 0px 8px 0px',
+  },
+  menuContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
   active: {
     backgroundColor: colors.lightGray,
