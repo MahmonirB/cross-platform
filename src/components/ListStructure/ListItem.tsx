@@ -10,6 +10,7 @@ import { colors } from '@app/styles/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Menu from './Menu';
 import { useFavorite } from '@app/store/favorites';
+import useClipboard from '@app/hooks/useClipboard';
 
 export interface ContentItem {
   name: string;
@@ -24,6 +25,8 @@ interface BoolListItemProps {
 
 function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const [open, setOpen] = useState(false);
+
+  const [, setToClipboard] = useClipboard();
 
   const categoryName: any = useFavorite((state: any) => state.categoryName);
   const updateCategoryName: any = useFavorite(
@@ -46,40 +49,43 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
     updateCategoryName(currentCategoryName);
   };
 
+  const onCopy = () => setToClipboard(content[0]?.value);
+
   return (
-    <TouchableOpacity style={styles.container} onPress={onClick}>
-      <View>
-        {title ? <Text style={styles.title}>{title}</Text> : null}
-        {showMenu ? (
-          <>
-            <Pressable
-              hitSlop={30}
-              onPress={handleOpen}
-              style={pressed => (pressed ? styles.active : styles.inactive)}>
-              <Icon
-                style={styles.icon}
-                name="ellipsis1"
-                size={18}
-                color={colors.black}
-              />
-            </Pressable>
-            {open ? (
-              <Menu
-                isFavorite={categoryName?.includes(content[0]?.value)}
-                addToFavorite={addToFavorite}
-                removeFromFavorite={removeFromFavorite}
-                onClose={handleClose}
-              />
-            ) : null}
-          </>
-        ) : null}
-      </View>
-      {content?.map((item: ContentItem) => (
-        <Text key={`${item.name}-${item.value}`} style={styles.text}>
-          <Text style={styles.textCaption}>{item.name}:</Text> {item.value}
-        </Text>
-      ))}
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity style={styles.container} onPress={onClick}>
+        <View>{title ? <Text style={styles.title}>{title}</Text> : null}</View>
+        {content?.map((item: ContentItem) => (
+          <Text key={`${item.name}-${item.value}`} style={styles.text}>
+            <Text style={styles.textCaption}>{item.name}:</Text> {item.value}
+          </Text>
+        ))}
+      </TouchableOpacity>
+      {showMenu ? (
+        <View style={styles.menuContainer}>
+          <Pressable
+            hitSlop={30}
+            onPress={handleOpen}
+            style={pressed => (pressed ? styles.active : styles.inactive)}>
+            <Icon
+              style={styles.icon}
+              name="ellipsis1"
+              size={18}
+              color={colors.black}
+            />
+          </Pressable>
+          {open ? (
+            <Menu
+              isFavorite={categoryName?.includes(content[0]?.value)}
+              onCopy={onCopy}
+              addToFavorite={addToFavorite}
+              removeFromFavorite={removeFromFavorite}
+              onClose={handleClose}
+            />
+          ) : null}
+        </View>
+      ) : null}
+    </View>
   );
 }
 
@@ -102,6 +108,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: colors.white,
     boxShadow: '#ccc 1px 0px 8px 0px',
+  },
+  menuContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
   active: {
     backgroundColor: colors.lightGray,
