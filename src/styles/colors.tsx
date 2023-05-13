@@ -4,6 +4,7 @@ export const colors = {
   disable: '#F6F6F6',
   disableText: '#AFAFAF',
   GrayTextDisable: '#C6C6C6',
+  greyBg: '#FCFCFC',
   bluePrimary: '#0062FF',
   white: '#FFFFFF',
   black: '#000000',

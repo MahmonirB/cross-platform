@@ -60,13 +60,14 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: '90%',
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomColor: colors.borderGray,
     borderBottomWidth: 1,
     marginBottom: 24,
+    marginHorizontal: 16,
   },
   icon: {
     position: 'absolute',
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingVertical: 2,
     paddingLeft: 32,
-    backgroundColor: colors.disable,
+    backgroundColor: colors.greyBg,
   },
   closeIcon: {
     position: 'absolute',

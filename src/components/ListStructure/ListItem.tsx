@@ -49,7 +49,10 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
     updateCategoryName(currentCategoryName);
   };
 
-  const onCopy = () => setToClipboard(content[0]?.value);
+  const onCopy = () => {
+    handleClose();
+    setToClipboard(content[0]?.value);
+  };
 
   return (
     <View>
@@ -108,11 +111,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: colors.white,
     boxShadow: '#ccc 1px 0px 8px 0px',
+    elevation: 5,
+    marginHorizontal: 16,
   },
   menuContainer: {
     position: 'absolute',
     top: 10,
-    right: 10,
+    right: 24,
   },
   active: {
     backgroundColor: colors.lightGray,

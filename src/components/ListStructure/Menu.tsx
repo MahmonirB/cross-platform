@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     boxShadow: '#ccc 1px 0px 8px 0px',
     paddingTop: 8,
+    elevation: 3,
   },
   row: {
     flexDirection: 'row',
