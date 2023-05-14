@@ -4,6 +4,7 @@
     "types": ["node"],
     "lib": ["DOM"],
     "baseUrl": ".",
+    "jsx": "react",
     "paths" : {
       "@app/*": ["src/*"]
     }
