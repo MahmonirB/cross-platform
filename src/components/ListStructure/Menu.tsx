@@ -47,6 +47,11 @@ function Menu({
       icon: 'copy1',
       onPress: onCopy,
     },
+    {
+      title: 'close',
+      icon: 'close',
+      onPress: onClose,
+    },
   ];
 
   return (
@@ -78,18 +83,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 8,
     boxShadow: '#ccc 1px 0px 8px 0px',
-    paddingTop: 8,
+    paddingTop: 4,
     elevation: 3,
   },
   row: {
     flexDirection: 'row',
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 5,
     borderBottomColor: colors.borderGray,
     borderBottomWidth: 1,
   },
   icon: {
     width: 16,
-    marginRight: 16,
+    marginRight: 24,
   },
 });
