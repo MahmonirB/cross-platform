@@ -1,3 +1,4 @@
+import { ActivityIndicator } from 'react-native';
 import { WEB_ENV } from '@app/config';
 import { STATUS_TEXT } from '@app/constants/Variables';
 import { colors } from '@app/styles/colors';
@@ -25,7 +26,7 @@ export function LoadingState<T>(Component: FC<T>) {
     if (isLoading) {
       return (
         <View style={styles.container}>
-          <LazyImage name="spinner" />
+          <ActivityIndicator size={28} />
           <Text style={styles.text}>{STATUS_TEXT.loading}</Text>
         </View>
       );
