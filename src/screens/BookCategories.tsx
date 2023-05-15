@@ -2,7 +2,7 @@ import { ListWithState } from '@app/components/ListStructure';
 import { bookCategories } from '@app/constants/ApiArgs';
 import useReactQuery from '@app/lib/Api';
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -23,7 +23,7 @@ type Props = CompositeScreenProps<
 function BookCategories({ navigation }: Props) {
   const [searchText, setSearchText] = useState('');
   const { t } = useTranslation();
-  const { data, isError, isLoading, isFetching } =
+  const { data, isError, isLoading, isFetching, refetch } =
     useReactQuery(bookCategories);
   const results = (data as ResponseData<BookCategoriesData>)?.results;
 
@@ -41,7 +41,14 @@ function BookCategories({ navigation }: Props) {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={isFetching || isLoading}
+          onRefresh={refetch}
+        />
+      }>
       {results?.length ? (
         <SearchBar
           placeholder={`${t('search')}...`}

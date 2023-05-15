@@ -1,6 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../container/HomeScreen';
+import ErrorScreen from '../container/ErrorScreen';
 import AuthenticateStack, {
   AuthStackProps,
 } from './AuthenticateStack/AuthenticateStack';
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   AuthenticateStack: NavigatorScreenParams<AuthStackProps>;
   Main?: NavigatorScreenParams<BottomTabStackProps>;
   Home: undefined;
+  Error: undefined;
   BookCategoryList: { listName: string };
 };
 
@@ -35,6 +37,13 @@ function AppNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Error"
+        component={ErrorScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="BookCategoryList"
         component={BookCategoryList}
