@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 export const useFavorite = create(
   persist(
@@ -16,6 +16,7 @@ export const useFavorite = create(
     }),
     {
       name: 'cross-app',
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );

@@ -2,6 +2,8 @@ import React, { memo, useCallback } from 'react';
 import ListItem, { ContentItem } from './ListItem';
 import { EmptyState, ErrorState, LoadingState, SearchState } from '../States';
 import { compose } from '@app/utils/compose';
+import { FlatList, View, Text, StyleSheet } from 'react-native';
+import { colors } from '@app/styles/colors';
 
 interface ListStructureProps {
   results: Array<ContentItem[]>;
@@ -24,18 +26,31 @@ function ListStructure({
     [selectBy],
   );
 
+  const renderItem = ({ item }: { item: Array<ContentItem> }) => (
+    <ListItem
+      content={item}
+      showMenu={showMenu}
+      onClick={handleClick(selectValue(item))}
+    />
+  );
+
+  const renderHeader = () => (
+    <View style={styles.header}>
+      <Text> Total result is {results?.length}</Text>
+    </View>
+  );
+
   return (
     <>
-      {results
-        ? results?.map((item: Array<ContentItem>, index: number) => (
-            <ListItem
-              key={`${Object.values(item).toString()}-${index}`}
-              content={item}
-              showMenu={showMenu}
-              onClick={handleClick(selectValue(item))}
-            />
-          ))
-        : null}
+      <FlatList
+        data={results}
+        renderItem={renderItem}
+        keyExtractor={(item, index) =>
+          `${Object.values(item).toString()}-${index}`
+        }
+        stickyHeaderHiddenOnScroll={true}
+        ListHeaderComponent={renderHeader}
+      />
     </>
   );
 }
@@ -54,3 +69,13 @@ export const ListWithState = compose(
   SearchState,
   EmptyState,
 )(ListStructure);
+
+const styles = StyleSheet.create({
+  header: {
+    margin: 24,
+    marginTop: 0,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'dashed',
+    borderBottomColor: colors.borderGray,
+  },
+});
