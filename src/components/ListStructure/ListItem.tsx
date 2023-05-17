@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Menu from './Menu';
 import { useFavorite } from '@app/store/favorites';
 import useClipboard from '@app/hooks/useClipboard';
+import { useOnClickOutside } from '@app/hooks/useOutsideClick';
 
 export interface ContentItem {
   name: string;
@@ -25,6 +26,7 @@ interface BoolListItemProps {
 
 function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const [, setToClipboard] = useClipboard();
 
@@ -33,9 +35,14 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
     (state: any) => state.updateCategoryName,
   );
 
-  const handleClose = useCallback(() => setOpen(false), []);
+  const handleClose = useCallback((event: any) => {
+    if (!menuRef?.current || !event?.target.contains(menuRef?.current)) {
+      setOpen(false);
+    }
+  }, []);
 
   const handleOpen = useCallback(() => setOpen(true), []);
+  useOnClickOutside(menuRef, handleClose);
 
   const addToFavorite = () =>
     updateCategoryName([...categoryName, content[0]?.value]);
@@ -50,13 +57,18 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
   };
 
   const onCopy = () => {
-    handleClose();
     setToClipboard(content[0]?.value);
   };
 
+  const handleClickOnItem = () => {
+    if (!open) {
+      onClick();
+    }
+  };
+
   return (
-    <View>
-      <TouchableOpacity style={styles.container} onPress={onClick}>
+    <>
+      <TouchableOpacity style={styles.container} onPress={handleClickOnItem}>
         <View>{title ? <Text style={styles.title}>{title}</Text> : null}</View>
         {content?.map((item: ContentItem) => (
           <Text key={`${item.name}-${item.value}`} style={styles.text}>
@@ -79,6 +91,7 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
           </Pressable>
           {open ? (
             <Menu
+              ref={menuRef}
               isFavorite={categoryName?.includes(content[0]?.value)}
               onCopy={onCopy}
               addToFavorite={addToFavorite}
@@ -88,7 +101,7 @@ function ListItem({ title, showMenu, content, onClick }: BoolListItemProps) {
           ) : null}
         </View>
       ) : null}
-    </View>
+    </>
   );
 }
 

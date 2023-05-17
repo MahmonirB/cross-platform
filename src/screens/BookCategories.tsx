@@ -74,7 +74,7 @@ export default BookCategories;
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 24,
+    paddingTop: 24,
   },
   searchBox: {
     width: '100%',

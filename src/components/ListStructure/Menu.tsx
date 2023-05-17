@@ -1,26 +1,19 @@
-import React, { useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { colors } from '@app/styles/colors';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useOnClickOutside } from '@app/hooks/useOutsideClick';
 
 interface MenuProps {
   isFavorite: boolean;
   onCopy: () => void;
-  onClose: () => void;
+  onClose: (event: any) => void;
   addToFavorite: () => void;
   removeFromFavorite: () => void;
 }
 
-function Menu({
-  isFavorite,
-  onCopy,
-  onClose,
-  addToFavorite,
-  removeFromFavorite,
-}: MenuProps) {
-  const menuRef = useRef(null);
-  useOnClickOutside(menuRef, onClose);
+const Menu = forwardRef((props: MenuProps, ref: any) => {
+  const { isFavorite, onCopy, onClose, addToFavorite, removeFromFavorite } =
+    props;
 
   const onFavoritePress = () => {
     if (isFavorite) {
@@ -55,7 +48,7 @@ function Menu({
   ];
 
   return (
-    <View ref={menuRef} style={styles.menu}>
+    <View ref={ref} style={styles.menu}>
       {MENU_LIST.map(item => (
         <TouchableOpacity
           onPress={item.onPress}
@@ -72,7 +65,7 @@ function Menu({
       ))}
     </View>
   );
-}
+});
 export default Menu;
 
 const styles = StyleSheet.create({
