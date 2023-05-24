@@ -22,6 +22,7 @@ const MainTabs = () => {
           title: `${t('mainPage')}`,
           tabBarLabel: '',
           tabBarIcon: () => <Icon name="home" size={24} />,
+          headerRight: () => <Icon name="mail" size={16} />
         }}
       />
       <Tabs.Screen
