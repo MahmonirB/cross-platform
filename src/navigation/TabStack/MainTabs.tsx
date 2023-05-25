@@ -7,6 +7,7 @@ import {
 } from './MainTabStack';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useTranslation } from 'react-i18next';
+import { TouchableOpacity } from 'react-native';
 
 const Tabs = createBottomTabNavigator();
 
@@ -18,11 +19,18 @@ const MainTabs = () => {
       <Tabs.Screen
         name="Main Page"
         component={ExploreStackScreen}
-        options={{
+        options={({ navigation }) => ({
           title: `${t('mainPage')}`,
           tabBarLabel: '',
           tabBarIcon: () => <Icon name="home" size={24} />,
-        }}
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginHorizontal: 24 }}
+              onPress={() => navigation.navigate('Contact')}>
+              <Icon name="mail" size={24} />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Tabs.Screen
         name="Book Categories"

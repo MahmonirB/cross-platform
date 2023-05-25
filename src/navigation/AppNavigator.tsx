@@ -10,12 +10,14 @@ import BookCategoryList from '@app/screens/BookCategoryList';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { BottomTabStackProps } from './TabStack/MainTabStack';
 import { useTranslation } from 'react-i18next';
+import Contact from '@app/container/Contact';
 
 export type RootStackParamList = {
   AuthenticateStack: NavigatorScreenParams<AuthStackProps>;
   Main?: NavigatorScreenParams<BottomTabStackProps>;
   Home: undefined;
   Error: undefined;
+  Contact: undefined;
   BookCategoryList: { listName: string };
 };
 
@@ -37,6 +39,7 @@ function AppNavigator() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Contact" component={Contact} />
       <Stack.Screen
         name="Error"
         component={ErrorScreen}

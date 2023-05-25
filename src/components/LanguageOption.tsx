@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import ActionItem from './ActionItem';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 function LanguageOption() {
   const { t, i18n } = useTranslation();
@@ -16,7 +17,9 @@ function LanguageOption() {
 
   return (
     <TouchableOpacity onPress={handleLanguage}>
-      <ActionItem text={t('selectLanguage')}>
+      <ActionItem
+        text={t('selectLanguage')}
+        icon={<Icon name="earth" size={14} />}>
         <Text style={styles.link}>{i18n.language}</Text>
       </ActionItem>
     </TouchableOpacity>
