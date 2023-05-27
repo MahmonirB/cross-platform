@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { colors } from '@app/styles/colors';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { useToast } from 'react-native-toast-notifications';
 import LazyImage from '@app/components/LazyImage';
 
 export default function Contact() {
@@ -18,7 +18,10 @@ export default function Contact() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = data => console.log(data);
+  const toast = useToast();
+
+  const onSubmit = ({ name, mobile }: { name: string; mobile: string }) =>
+    toast.show(`${name} has registered with ${mobile}`);
 
   return (
     <View style={styles.container}>
@@ -37,6 +40,7 @@ export default function Contact() {
               onChangeText={onChange}
               value={value}
               placeholder="Name e.g Jack Tailor"
+              placeholderTextColor={colors.GrayTextDisable}
             />
           )}
           name="name"
@@ -56,6 +60,7 @@ export default function Contact() {
               onChangeText={onChange}
               value={value}
               placeholder="Mobile e.g 049171212123421"
+              placeholderTextColor={colors.GrayTextDisable}
             />
           )}
           name="mobile"
@@ -63,7 +68,11 @@ export default function Contact() {
         />
       </ScrollView>
       <View style={styles.footer}>
-        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        <Button
+          title="Submit"
+          onPress={handleSubmit(onSubmit)}
+          color={colors.primary}
+        />
       </View>
     </View>
   );
@@ -88,6 +97,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.borderGray,
     marginBottom: 16,
+    outlineColor: colors.primary,
   },
   footer: {
     position: 'absolute',
