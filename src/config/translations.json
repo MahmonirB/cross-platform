@@ -9,7 +9,10 @@
       "bookCategoryList": "Book Category List",
       "bestsellersDate": "Bestsellers date",
       "publishedDate": "Published date",
-      "rankLastWeek": "Rank last week"
+      "rankLastWeek": "Rank last week",
+      "contactTitle": "Contact us, we'll call you",
+      "isRegisteredBy": "has registered with",
+      "requiredText": "This is required."
     }
   },
   "de": {
@@ -22,7 +25,10 @@
       "bookCategoryList": "Liste der Buchkategorien",
       "bestsellersDate": "Bestseller-Datum",
       "publishedDate": "Veröffentlichungsdatum",
-      "rankLastWeek": "Rang letzte Woche"
+      "rankLastWeek": "Rang letzte Woche",
+      "contactTitle": "Kontaktieren Sie uns, wir rufen Sie an",
+      "isRegisteredBy": "hat sich bei registriert",
+      "requiredText": "Dies ist erforderlich."
     }
   }
 }
