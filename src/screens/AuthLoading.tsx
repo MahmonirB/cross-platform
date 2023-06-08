@@ -16,7 +16,7 @@ function AuthLoading(props: Props) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   function chooseRoot() {
-    // TODO: Add finctionality to check token and navigate to proper roat
+    // TODO: Add finctionality to check token and navigate to proper route
     navigation.replace('Main');
   }
 
