@@ -24,3 +24,17 @@ export const SVG_IMG: { [key: string]: any } = WEB_ENV
       networkError: NetworkError,
       contact: Contact,
     };
+
+export const IMAGES = [
+  'https://robohash.org/hicveldicta.png',
+  'https://robohash.org/doloremquesintcorrupti.png',
+  'https://robohash.org/consequunturautconsequatur.png',
+  'https://robohash.org/facilisdignissimosdolore.png',
+  'https://robohash.org/adverovelit.png',
+  'https://robohash.org/laboriosamfacilisrem.png',
+  'https://robohash.org/cupiditatererumquos.png',
+  'https://robohash.org/quiaharumsapiente.png',
+  'https://robohash.org/excepturiiuremolestiae.png',
+  'https://robohash.org/aliquamcumqueiure.png',
+  'https://robohash.org/impeditautest.png',
+];

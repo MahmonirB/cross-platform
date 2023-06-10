@@ -7,12 +7,38 @@ import {
 } from './MainTabStack';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity } from 'react-native';
+import { Image, ImageSourcePropType, TouchableOpacity } from 'react-native';
+import CPContext from '@app/context';
 
 const Tabs = createBottomTabNavigator();
 
 const MainTabs = () => {
   const { t } = useTranslation();
+  const data = React.useContext(CPContext);
+
+  const renderHeader = (navigation: any) => (
+    <TouchableOpacity
+      style={{ marginHorizontal: 24 }}
+      onPress={() => navigation.navigate('Contact')}>
+      <Image
+        source={data?.image as ImageSourcePropType}
+        style={{ width: 50, height: 50 }}
+      />
+    </TouchableOpacity>
+  );
+
+  const renderContactHeader = (navigation: any) => (
+    <TouchableOpacity
+      style={{ marginHorizontal: 24 }}
+      onPress={() => navigation.navigate('Contact')}>
+      <Icon name="mail" size={24} />
+    </TouchableOpacity>
+  );
+
+  const renderTabIcon = React.useCallback(
+    (icon: string) => <Icon name={icon} size={24} />,
+    [],
+  );
 
   return (
     <Tabs.Navigator initialRouteName="Main Page">
@@ -22,33 +48,29 @@ const MainTabs = () => {
         options={({ navigation }) => ({
           title: `${t('mainPage')}`,
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="home" size={24} />,
-          headerRight: () => (
-            <TouchableOpacity
-              style={{ marginHorizontal: 24 }}
-              onPress={() => navigation.navigate('Contact')}>
-              <Icon name="mail" size={24} />
-            </TouchableOpacity>
-          ),
+          tabBarIcon: () => renderTabIcon('home'),
+          headerRight: () => renderHeader(navigation),
         })}
       />
       <Tabs.Screen
         name="Book Categories"
         component={BookCategoryStackScreen}
-        options={{
+        options={({ navigation }) => ({
           title: `${t('bookCategories')}`,
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="book" size={24} />,
-        }}
+          tabBarIcon: () => renderTabIcon('book'),
+          headerRight: () => renderHeader(navigation),
+        })}
       />
       <Tabs.Screen
         name="Settings"
         component={SettingsStackScreen}
-        options={{
+        options={({ navigation }) => ({
           title: `${t('settings')}`,
           tabBarLabel: '',
-          tabBarIcon: () => <Icon name="setting" size={24} />,
-        }}
+          tabBarIcon: () => renderTabIcon('setting'),
+          headerRight: () => renderContactHeader(navigation),
+        })}
       />
     </Tabs.Navigator>
   );
