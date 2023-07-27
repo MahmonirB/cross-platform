@@ -7,7 +7,12 @@ import {
 } from './MainTabStack';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useTranslation } from 'react-i18next';
-import { Image, ImageSourcePropType, TouchableOpacity } from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import CPContext from '@app/context';
 
 const Tabs = createBottomTabNavigator();
@@ -18,18 +23,15 @@ const MainTabs = () => {
 
   const renderHeader = (navigation: any) => (
     <TouchableOpacity
-      style={{ marginHorizontal: 24 }}
+      style={styles.header}
       onPress={() => navigation.navigate('Contact')}>
-      <Image
-        source={data?.image as ImageSourcePropType}
-        style={{ width: 50, height: 50 }}
-      />
+      <Image source={data?.image as ImageSourcePropType} style={styles.image} />
     </TouchableOpacity>
   );
 
   const renderContactHeader = (navigation: any) => (
     <TouchableOpacity
-      style={{ marginHorizontal: 24 }}
+      style={styles.header}
       onPress={() => navigation.navigate('Contact')}>
       <Icon name="mail" size={24} />
     </TouchableOpacity>
@@ -77,3 +79,13 @@ const MainTabs = () => {
 };
 
 export default MainTabs;
+
+const styles = StyleSheet.create({
+  header: {
+    marginHorizontal: 24,
+  },
+  image: {
+    width: 50,
+    height: 50,
+  },
+});
