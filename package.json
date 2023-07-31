@@ -13,6 +13,7 @@
     "web": "webpack serve --mode=development --config webpack.config.js"
   },
   "dependencies": {
+    "@gorhom/portal": "^1.0.14",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/netinfo": "^9.3.10",

@@ -8,6 +8,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import * as RootNavigation from '@app/navigation/RootNavigation';
 import CPContext from '@app/context';
 import { IMAGES } from '@app/constants/Variables';
+import { PortalProvider } from '@gorhom/portal';
 
 const clientQuery = new QueryClient();
 LogBox.ignoreAllLogs(true);
@@ -23,15 +24,17 @@ const App = () => {
   };
 
   return (
-    <ToastProvider>
-      <QueryClientProvider client={clientQuery}>
-        <NavigationContainer ref={RootNavigation.navigationRef}>
-          <CPContext.Provider value={contextValue}>
-            <RootNavigator />
-          </CPContext.Provider>
-        </NavigationContainer>
-      </QueryClientProvider>
-    </ToastProvider>
+    <PortalProvider>
+      <ToastProvider>
+        <QueryClientProvider client={clientQuery}>
+          <NavigationContainer ref={RootNavigation.navigationRef}>
+            <CPContext.Provider value={contextValue}>
+              <RootNavigator />
+            </CPContext.Provider>
+          </NavigationContainer>
+        </QueryClientProvider>
+      </ToastProvider>
+    </PortalProvider>
   );
 };
 
